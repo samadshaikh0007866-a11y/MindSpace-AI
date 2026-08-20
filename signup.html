@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sign Up | MindSpace</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #eef8f5, #f8fbfa);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #263a35;
+        }
+
+        .signup-container {
+            width: 100%;
+            max-width: 440px;
+            padding: 20px;
+        }
+
+        .signup-card {
+            background: white;
+            padding: 45px 40px;
+            border-radius: 25px;
+            box-shadow: 0 15px 45px rgba(44, 92, 81, 0.12);
+        }
+
+        /* Logo */
+
+        .logo {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            color: #3d8172;
+            font-size: 30px;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        /* Heading */
+
+        .signup-card h1 {
+            text-align: center;
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #71807b;
+            font-size: 14px;
+            margin-bottom: 32px;
+        }
+
+        /* Form */
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid #d8e3df;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: #3d8172;
+            box-shadow: 0 0 0 3px rgba(61, 129, 114, 0.1);
+        }
+
+        /* Password requirement */
+
+        .password-hint {
+            margin-top: 7px;
+            font-size: 12px;
+            color: #87938f;
+        }
+
+        /* Signup button */
+
+        .signup-button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 25px;
+            background: #3d8172;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 5px;
+            transition: 0.3s;
+        }
+
+        .signup-button:hover {
+            background: #316b5e;
+            transform: translateY(-1px);
+        }
+
+        /* Login */
+
+        .login-text {
+            text-align: center;
+            margin-top: 25px;
+            color: #71807b;
+            font-size: 14px;
+        }
+
+        .login-text a {
+            color: #3d8172;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Back to home */
+
+        .back-home {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #71807b;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-home:hover {
+            color: #3d8172;
+        }
+
+        /* Error message */
+
+        .error-message {
+            display: none;
+            padding: 10px;
+            margin-bottom: 18px;
+            border-radius: 8px;
+            background: #fff1f1;
+            color: #b04a4a;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 500px) {
+
+            .signup-card {
+                padding: 35px 25px;
+            }
+
+            .signup-card h1 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="signup-container">
+
+        <div class="signup-card">
+
+            <!-- Logo -->
+
+            <a href="index.html" class="logo">
+                MindSpace
+            </a>
+
+
+            <!-- Heading -->
+
+            <h1>
+                Create Account
+            </h1>
+
+            <p class="subtitle">
+                Start your personal wellness journey with MindSpace.
+            </p>
+
+
+            <!-- Error Message -->
+
+            <div class="error-message" id="errorMessage">
+                Please check your information and try again.
+            </div>
+
+
+            <!-- Signup Form -->
+
+            <form id="signupForm">
+
+                <!-- Name -->
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Enter your full name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Email -->
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Password -->
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Create a password"
+                        minlength="6"
+                        required
+                    >
+
+                    <p class="password-hint">
+                        Password must contain at least 6 characters.
+                    </p>
+
+                </div>
+
+
+                <!-- Confirm Password -->
+
+                <div class="form-group">
+
+                    <label for="confirmPassword">
+                        Confirm Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        placeholder="Confirm your password"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Submit -->
+
+                <button
+                    type="submit"
+                    class="signup-button"
+                >
+                    Create Account
+                </button>
+
+            </form>
+
+
+            <!-- Login -->
+
+            <p class="login-text">
+
+                Already have an account?
+
+                <a href="login.html">
+                    Login
+                </a>
+
+            </p>
+
+        </div>
+
+
+        <!-- Back Home -->
+
+        <a href="index.html" class="back-home">
+            ← Back to Home
+        </a>
+
+    </div>
+
+
+    <script>
+
+        const signupForm = document.getElementById("signupForm");
+
+        const errorMessage = document.getElementById("errorMessage");
+
+
+        signupForm.addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+
+            const name =
+                document.getElementById("name").value.trim();
+
+            const email =
+                document.getElementById("email").value.trim();
+
+            const password =
+                document.getElementById("password").value;
+
+            const confirmPassword =
+                document.getElementById("confirmPassword").value;
+
+
+            /* Check password */
+
+            if (password !== confirmPassword) {
+
+                errorMessage.textContent =
+                    "Passwords do not match.";
+
+                errorMessage.style.display = "block";
+
+                return;
+            }
+
+
+            /* Check password length */
+
+            if (password.length < 6) {
+
+                errorMessage.textContent =
+                    "Password must contain at least 6 characters.";
+
+                errorMessage.style.display = "block";
+
+                return;
+            }
+
+
+            /* Temporary frontend response */
+
+            errorMessage.style.display = "none";
+
+            alert(
+                "Account creation will be connected to the backend soon."
+            );
+
+        });
+
+    </script>
+
+</body>
+</html>

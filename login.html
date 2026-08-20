@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | MindSpace</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #eef8f5, #f8fbfa);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #263a35;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 440px;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: white;
+            padding: 45px 40px;
+            border-radius: 25px;
+            box-shadow: 0 15px 45px rgba(44, 92, 81, 0.12);
+        }
+
+        /* Logo */
+
+        .logo {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            color: #3d8172;
+            font-size: 30px;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        /* Heading */
+
+        .login-card h1 {
+            text-align: center;
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #71807b;
+            font-size: 14px;
+            margin-bottom: 32px;
+        }
+
+        /* Form */
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid #d8e3df;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: #3d8172;
+            box-shadow: 0 0 0 3px rgba(61, 129, 114, 0.1);
+        }
+
+        /* Login button */
+
+        .login-button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 25px;
+            background: #3d8172;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 5px;
+            transition: 0.3s;
+        }
+
+        .login-button:hover {
+            background: #316b5e;
+            transform: translateY(-1px);
+        }
+
+        /* Signup */
+
+        .signup-text {
+            text-align: center;
+            margin-top: 25px;
+            color: #71807b;
+            font-size: 14px;
+        }
+
+        .signup-text a {
+            color: #3d8172;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .signup-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Back to home */
+
+        .back-home {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #71807b;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-home:hover {
+            color: #3d8172;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 500px) {
+
+            .login-card {
+                padding: 35px 25px;
+            }
+
+            .login-card h1 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <div class="login-card">
+
+            <!-- Logo -->
+            <a href="index.html" class="logo">
+                MindSpace
+            </a>
+
+            <!-- Heading -->
+            <h1>
+                Welcome Back
+            </h1>
+
+            <p class="subtitle">
+                Sign in to continue your wellness journey.
+            </p>
+
+            <!-- Login Form -->
+            <form id="loginForm">
+
+                <div class="form-group">
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+                </div>
+
+
+                <button type="submit" class="login-button">
+                    Login
+                </button>
+
+            </form>
+
+
+            <!-- Signup -->
+            <p class="signup-text">
+                Don't have an account?
+                <a href="signup.html">
+                    Create one
+                </a>
+            </p>
+
+        </div>
+
+
+        <!-- Back Home -->
+        <a href="index.html" class="back-home">
+            ← Back to Home
+        </a>
+
+    </div>
+
+
+    <script>
+        const loginForm = document.getElementById("loginForm");
+
+        loginForm.addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            /*
+             * Backend authentication will be connected here later.
+             *
+             * For now, we simply demonstrate the form submission.
+             */
+
+            if (email && password) {
+                alert("Login functionality will be connected to the backend soon.");
+            }
+
+        });
+    </script>
+
+</body>
+</html>
