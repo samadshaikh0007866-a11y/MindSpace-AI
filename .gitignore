@@ -1,0 +1,10 @@
+# Backend runtime data
+backend/data/
+backend/node_modules/
+
+# Environment
+.env
+
+# OS files
+.DS_Store
+Thumbs.db

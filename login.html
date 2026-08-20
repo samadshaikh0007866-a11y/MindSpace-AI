@@ -244,13 +244,9 @@
         const loginForm = document.getElementById("loginForm");
 
 
-        /* ===== User storage helpers ===== */
+        /* ===== API base (backend server URL) ===== */
 
-        function getUsers() {
-
-            return JSON.parse(localStorage.getItem("mindspace_users") || "[]");
-
-        }
+        const API_BASE = "http://localhost:3000";
 
 
         /* Show or create an inline error banner */
@@ -298,40 +294,47 @@
                 document.getElementById("password").value;
 
 
-            /* Look up the account */
+            /* Send the login request to the backend */
 
-            const users = getUsers();
+            fetch(API_BASE + "/api/login", {
 
-            const user = users.find(function(account) {
+                method: "POST",
 
-                return account.email === email;
+                headers: { "Content-Type": "application/json" },
 
-            });
+                credentials: "include",
+
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
+
+            }).then(function(response) {
+
+                return response.json().then(function(data) {
+
+                    if (!response.ok) {
+
+                        showError(data.error || "Something went wrong.");
+
+                        return;
+
+                    }
 
 
-            /* Verify the password */
+                    /* Session is stored server-side; go to the dashboard */
 
-            if (!user || user.password !== password) {
+                    window.location.href = "dashboard.html";
+
+                });
+
+            }).catch(function() {
 
                 showError(
-                    "No account found with this email, or the password is incorrect."
+                    "Could not reach the server. Make sure the backend is running."
                 );
 
-                return;
-            }
-
-
-            /* Start the session and go to the dashboard */
-
-            localStorage.setItem(
-                "mindspace_session",
-                JSON.stringify({
-                    name: user.name,
-                    email: user.email
-                })
-            );
-
-            window.location.href = "dashboard.html";
+            });
 
         });
     </script>

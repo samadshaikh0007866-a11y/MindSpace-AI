@@ -363,20 +363,9 @@
         const successMessage = document.getElementById("successMessage");
 
 
-        /* ===== User storage helpers ===== */
+        /* ===== API base (backend server URL) ===== */
 
-        function getUsers() {
-
-            return JSON.parse(localStorage.getItem("mindspace_users") || "[]");
-
-        }
-
-
-        function saveUsers(users) {
-
-            localStorage.setItem("mindspace_users", JSON.stringify(users));
-
-        }
+        const API_BASE = "http://localhost:3000";
 
 
         signupForm.addEventListener("submit", function(event) {
@@ -425,50 +414,64 @@
             }
 
 
-            /* Check if the account already exists */
-
-            const users = getUsers();
-
-            if (users.some(function(user) {
-
-                return user.email === email;
-
-            })) {
-
-                errorMessage.textContent =
-                    "An account with this email already exists.";
-
-                errorMessage.style.display = "block";
-
-                return;
-            }
-
-
-            /* Save the new account */
-
-            users.push({
-                name: name,
-                email: email,
-                password: password,
-                createdAt: new Date().toISOString()
-            });
-
-            saveUsers(users);
-
-
-            /* Show success and redirect to login */
+            /* Send the signup request to the backend */
 
             errorMessage.style.display = "none";
 
-            successMessage.style.display = "block";
+            successMessage.style.display = "none";
 
-            signupForm.reset();
+            fetch(API_BASE + "/api/signup", {
 
-            setTimeout(function() {
+                method: "POST",
 
-                window.location.href = "login.html";
+                headers: { "Content-Type": "application/json" },
 
-            }, 1500);
+                credentials: "include",
+
+                body: JSON.stringify({
+                    name: name,
+                    email: email,
+                    password: password,
+                    confirmPassword: confirmPassword
+                })
+
+            }).then(function(response) {
+
+                return response.json().then(function(data) {
+
+                    if (!response.ok) {
+
+                        errorMessage.textContent = data.error || "Something went wrong.";
+
+                        errorMessage.style.display = "block";
+
+                        return;
+
+                    }
+
+
+                    /* Show success and redirect to login */
+
+                    successMessage.style.display = "block";
+
+                    signupForm.reset();
+
+                    setTimeout(function() {
+
+                        window.location.href = "login.html";
+
+                    }, 1500);
+
+                });
+
+            }).catch(function() {
+
+                errorMessage.textContent =
+                    "Could not reach the server. Make sure the backend is running.";
+
+                errorMessage.style.display = "block";
+
+            });
 
         });
 

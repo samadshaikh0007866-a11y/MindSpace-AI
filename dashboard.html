@@ -836,108 +836,153 @@
 
     <script>
 
-        /* ===== Session helpers ===== */
+        /* ===== API base (backend server URL) ===== */
 
-        function getSession() {
-
-            return JSON.parse(localStorage.getItem("mindspace_session") || "null");
-
-        }
+        const API_BASE = "http://localhost:3000";
 
 
-        function getUsers() {
+        /* ===== Load the current session from the backend ===== */
 
-            return JSON.parse(localStorage.getItem("mindspace_users") || "[]");
+        let currentUser = null;
 
-        }
+        let currentWellness = {};
 
 
-        function saveMood(mood, label) {
+        fetch(API_BASE + "/api/me", { credentials: "include" })
 
-            const session = getSession();
+            .then(function(response) {
 
-            if (!session) return;
+                if (!response.ok) {
 
-            const moods = JSON.parse(
-                localStorage.getItem("moods_" + session.email) || "[]"
-            );
+                    window.location.href = "login.html";
 
-            moods.push({
-                mood: mood,
-                label: label,
-                date: new Date().toISOString()
+                    return;
+
+                }
+
+                return response.json();
+
+            })
+
+            .then(function(data) {
+
+                if (!data) return;
+
+                currentUser = data.user;
+
+                currentWellness = data.wellness;
+
+                showUserProfile();
+
+                restoreMoodSelection();
+
+                updateSummaryCards();
+
+            })
+
+            .catch(function() {
+
+                window.location.href = "login.html";
+
             });
 
-            localStorage.setItem("moods_" + session.email, JSON.stringify(moods));
-
-        }
-
-
-        function loadLatestMood() {
-
-            const session = getSession();
-
-            if (!session) return null;
-
-            const moods = JSON.parse(
-                localStorage.getItem("moods_" + session.email) || "[]"
-            );
-
-            return moods.length ? moods[moods.length - 1] : null;
-
-        }
-
-
-        /* ===== Protect the dashboard ===== */
-
-        const currentSession = getSession();
-
-        if (!currentSession) {
-
-            window.location.href = "login.html";
-
-        }
 
 
         /* ===== Show user name and email ===== */
 
-        const welcomeTitle = document.getElementById("welcomeTitle");
+        function showUserProfile() {
 
-        if (welcomeTitle && currentSession) {
+            const welcomeTitle = document.getElementById("welcomeTitle");
 
-            const firstName =
-                currentSession.name.split(" ")[0] || "there";
+            if (welcomeTitle && currentUser) {
 
-            const hour = new Date().getHours();
+                const firstName =
+                    currentUser.name.split(" ")[0] || "there";
 
-            const greeting =
-                hour < 12
-                    ? "Good morning"
-                    : hour < 18
-                    ? "Good afternoon"
-                    : "Good evening";
+                const hour = new Date().getHours();
 
-            welcomeTitle.textContent =
-                greeting + ", " + firstName + " 👋";
+                const greeting =
+                    hour < 12
+                        ? "Good morning"
+                        : hour < 18
+                        ? "Good afternoon"
+                        : "Good evening";
 
-            document.getElementById("userEmail").textContent =
-                currentSession.email;
+                welcomeTitle.textContent =
+                    greeting + ", " + firstName + " 👋";
+
+                document.getElementById("userEmail").textContent =
+                    currentUser.email;
+
+            }
 
         }
 
 
-        /* ===== Restore latest mood selection ===== */
+        /* ===== Restore latest mood selection from the database ===== */
 
-        const latestMood = loadLatestMood();
+        function restoreMoodSelection() {
 
-        document.querySelectorAll(".mood").forEach(function(mood) {
+            const latestMood = currentWellness.latestMood;
 
-            if (latestMood && mood.querySelector("small").textContent === latestMood.label) {
-                mood.classList.add("selected");
+            document.querySelectorAll(".mood").forEach(function(mood) {
+
+                if (latestMood && mood.querySelector("small").textContent === latestMood.label) {
+                    mood.classList.add("selected");
+                }
+
+            });
+
+        }
+
+
+        /* ===== Update summary cards with real data ===== */
+
+        function updateSummaryCards() {
+
+            const values = document.querySelectorAll(".summary-value");
+
+            const labels = document.querySelectorAll(".summary-label");
+
+
+            /* Today's Mood card */
+
+            if (currentWellness.latestMood) {
+
+                values[0].textContent = currentWellness.latestMood.mood;
+
+                labels[1].textContent =
+                    "Feeling " + currentWellness.latestMood.label.toLowerCase() + " today";
+
             }
 
-        });
 
+            /* Activities completed today */
+
+            values[1].textContent = currentWellness.activitiesToday;
+
+
+            /* Wellness score: simple heuristic from recent moods */
+
+            const moods = currentWellness.recentMoods || [];
+
+            if (moods.length) {
+
+                const order = { "Great": 5, "Good": 4, "Okay": 3, "Low": 2, "Difficult": 1 };
+
+                const avg =
+                    moods.reduce(function(sum, m) {
+                        return sum + (order[m.label] || 3);
+                    }, 0) / moods.length;
+
+                values[2].textContent = Math.round((avg / 5) * 100) + "%";
+
+            }
+
+        }
+
+
+        /* ===== Record a mood check-in ===== */
 
         function selectMood(element) {
 
@@ -953,12 +998,33 @@
 
             const label = element.querySelector("small").textContent;
 
-            saveMood(emoji, label);
+
+            fetch(API_BASE + "/api/moods", {
+
+                method: "POST",
+
+                headers: { "Content-Type": "application/json" },
+
+                credentials: "include",
+
+                body: JSON.stringify({ mood: emoji, label: label })
+
+            }).then(function(response) {
+
+                if (response.ok) {
+
+                    currentWellness.latestMood = { mood: emoji, label: label };
+
+                    updateSummaryCards();
+
+                }
+
+            });
 
         }
 
 
-        /* ===== Real logout ===== */
+        /* ===== Real logout via the backend ===== */
 
         const logoutBtn = document.getElementById("logoutBtn");
 
@@ -968,21 +1034,48 @@
 
                 event.preventDefault();
 
-                localStorage.removeItem("mindspace_session");
+                fetch(API_BASE + "/api/logout", { credentials: "include" })
 
-                window.location.href = "login.html";
+                    .finally(function() {
+
+                        window.location.href = "login.html";
+
+                    });
 
             });
 
         }
 
 
+        /* ===== Mark a wellness activity complete (saved to the database) ===== */
+
         function startActivity(activityName) {
 
-            alert(
-                activityName +
-                " will be available when the Wellness module is connected."
-            );
+            fetch(API_BASE + "/api/activities", {
+
+                method: "POST",
+
+                headers: { "Content-Type": "application/json" },
+
+                credentials: "include",
+
+                body: JSON.stringify({ name: activityName })
+
+            }).then(function(response) {
+
+                if (response.ok) {
+
+                    currentWellness.activitiesToday += 1;
+
+                    const values = document.querySelectorAll(".summary-value");
+
+                    values[1].textContent = currentWellness.activitiesToday;
+
+                    alert(activityName + " started. Completed!");
+
+                }
+
+            });
 
         }
 
