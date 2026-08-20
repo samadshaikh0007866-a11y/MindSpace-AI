@@ -243,22 +243,95 @@
     <script>
         const loginForm = document.getElementById("loginForm");
 
+
+        /* ===== User storage helpers ===== */
+
+        function getUsers() {
+
+            return JSON.parse(localStorage.getItem("mindspace_users") || "[]");
+
+        }
+
+
+        /* Show or create an inline error banner */
+
+        function showError(message) {
+
+            let banner = document.getElementById("loginError");
+
+            if (!banner) {
+
+                banner = document.createElement("div");
+
+                banner.id = "loginError";
+
+                banner.style.display = "block";
+                banner.style.padding = "10px";
+                banner.style.marginBottom = "18px";
+                banner.style.borderRadius = "8px";
+                banner.style.background = "#fff1f1";
+                banner.style.color = "#b04a4a";
+                banner.style.fontSize = "13px";
+                banner.style.textAlign = "center";
+
+                const card = document.querySelector(".login-card");
+
+                card.insertBefore(banner, document.getElementById("loginForm"));
+
+            }
+
+            banner.textContent = message;
+
+            banner.style.display = "block";
+
+        }
+
+
         loginForm.addEventListener("submit", function(event) {
 
             event.preventDefault();
 
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
+            const email =
+                document.getElementById("email").value.trim().toLowerCase();
 
-            /*
-             * Backend authentication will be connected here later.
-             *
-             * For now, we simply demonstrate the form submission.
-             */
+            const password =
+                document.getElementById("password").value;
 
-            if (email && password) {
-                alert("Login functionality will be connected to the backend soon.");
+
+            /* Look up the account */
+
+            const users = getUsers();
+
+            const user = users.find(function(account) {
+
+                return account.email === email;
+
+            });
+
+
+            /* Verify the password */
+
+            if (!user || user.password !== password) {
+
+                showError(
+                    "No account found with this email, or the password is incorrect."
+                );
+
+                return;
             }
+
+
+            /* Start the session and go to the dashboard */
+
+            localStorage.setItem(
+                "mindspace_session",
+                JSON.stringify({
+                    name: user.name,
+                    email: user.email
+                })
+            );
+
+            window.location.href = "dashboard.html";
 
         });
     </script>

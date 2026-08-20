@@ -367,7 +367,8 @@
                 grid-template-columns: repeat(3, 1fr);
             }
 
-            .nav-right a:not(.logout-btn) {
+            .nav-right a:not(.logout-btn),
+            #userEmail {
                 display: none;
             }
         }
@@ -435,9 +436,11 @@
                 Settings
             </a>
 
-            <a href="login.html" class="logout-btn">
+            <a href="index.html" class="logout-btn" id="logoutBtn">
                 Logout
             </a>
+            <span id="userEmail" style="font-size:15px;color:#71807b;">
+            </span>
 
         </nav>
 
@@ -452,8 +455,8 @@
 
         <section class="welcome">
 
-            <h1>
-                Good morning, Samad 👋
+            <h1 id="welcomeTitle">
+                Good morning 👋
             </h1>
 
             <p>
@@ -833,6 +836,109 @@
 
     <script>
 
+        /* ===== Session helpers ===== */
+
+        function getSession() {
+
+            return JSON.parse(localStorage.getItem("mindspace_session") || "null");
+
+        }
+
+
+        function getUsers() {
+
+            return JSON.parse(localStorage.getItem("mindspace_users") || "[]");
+
+        }
+
+
+        function saveMood(mood, label) {
+
+            const session = getSession();
+
+            if (!session) return;
+
+            const moods = JSON.parse(
+                localStorage.getItem("moods_" + session.email) || "[]"
+            );
+
+            moods.push({
+                mood: mood,
+                label: label,
+                date: new Date().toISOString()
+            });
+
+            localStorage.setItem("moods_" + session.email, JSON.stringify(moods));
+
+        }
+
+
+        function loadLatestMood() {
+
+            const session = getSession();
+
+            if (!session) return null;
+
+            const moods = JSON.parse(
+                localStorage.getItem("moods_" + session.email) || "[]"
+            );
+
+            return moods.length ? moods[moods.length - 1] : null;
+
+        }
+
+
+        /* ===== Protect the dashboard ===== */
+
+        const currentSession = getSession();
+
+        if (!currentSession) {
+
+            window.location.href = "login.html";
+
+        }
+
+
+        /* ===== Show user name and email ===== */
+
+        const welcomeTitle = document.getElementById("welcomeTitle");
+
+        if (welcomeTitle && currentSession) {
+
+            const firstName =
+                currentSession.name.split(" ")[0] || "there";
+
+            const hour = new Date().getHours();
+
+            const greeting =
+                hour < 12
+                    ? "Good morning"
+                    : hour < 18
+                    ? "Good afternoon"
+                    : "Good evening";
+
+            welcomeTitle.textContent =
+                greeting + ", " + firstName + " 👋";
+
+            document.getElementById("userEmail").textContent =
+                currentSession.email;
+
+        }
+
+
+        /* ===== Restore latest mood selection ===== */
+
+        const latestMood = loadLatestMood();
+
+        document.querySelectorAll(".mood").forEach(function(mood) {
+
+            if (latestMood && mood.querySelector("small").textContent === latestMood.label) {
+                mood.classList.add("selected");
+            }
+
+        });
+
+
         function selectMood(element) {
 
             const moods = document.querySelectorAll(".mood");
@@ -843,7 +949,31 @@
 
             element.classList.add("selected");
 
-            alert("Mood recorded successfully.");
+            const emoji = element.querySelector("span").textContent;
+
+            const label = element.querySelector("small").textContent;
+
+            saveMood(emoji, label);
+
+        }
+
+
+        /* ===== Real logout ===== */
+
+        const logoutBtn = document.getElementById("logoutBtn");
+
+        if (logoutBtn) {
+
+            logoutBtn.addEventListener("click", function(event) {
+
+                event.preventDefault();
+
+                localStorage.removeItem("mindspace_session");
+
+                window.location.href = "login.html";
+
+            });
+
         }
 
 

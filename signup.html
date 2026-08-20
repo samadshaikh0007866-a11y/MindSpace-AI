@@ -167,6 +167,19 @@
             text-align: center;
         }
 
+        /* Success message */
+
+        .success-message {
+            display: none;
+            padding: 10px;
+            margin-bottom: 18px;
+            border-radius: 8px;
+            background: #eef8f2;
+            color: #2c7a55;
+            font-size: 13px;
+            text-align: center;
+        }
+
         /* Responsive */
 
         @media (max-width: 500px) {
@@ -204,6 +217,13 @@
             <p class="subtitle">
                 Start your personal wellness journey with MindSpace.
             </p>
+
+
+            <!-- Success Message -->
+
+            <div class="success-message" id="successMessage">
+                Account created successfully! Redirecting to login...
+            </div>
 
 
             <!-- Error Message -->
@@ -340,6 +360,24 @@
 
         const errorMessage = document.getElementById("errorMessage");
 
+        const successMessage = document.getElementById("successMessage");
+
+
+        /* ===== User storage helpers ===== */
+
+        function getUsers() {
+
+            return JSON.parse(localStorage.getItem("mindspace_users") || "[]");
+
+        }
+
+
+        function saveUsers(users) {
+
+            localStorage.setItem("mindspace_users", JSON.stringify(users));
+
+        }
+
 
         signupForm.addEventListener("submit", function(event) {
 
@@ -350,7 +388,7 @@
                 document.getElementById("name").value.trim();
 
             const email =
-                document.getElementById("email").value.trim();
+                document.getElementById("email").value.trim().toLowerCase();
 
             const password =
                 document.getElementById("password").value;
@@ -358,8 +396,10 @@
             const confirmPassword =
                 document.getElementById("confirmPassword").value;
 
+            successMessage.style.display = "none";
 
-            /* Check password */
+
+            /* Check password match */
 
             if (password !== confirmPassword) {
 
@@ -385,13 +425,50 @@
             }
 
 
-            /* Temporary frontend response */
+            /* Check if the account already exists */
+
+            const users = getUsers();
+
+            if (users.some(function(user) {
+
+                return user.email === email;
+
+            })) {
+
+                errorMessage.textContent =
+                    "An account with this email already exists.";
+
+                errorMessage.style.display = "block";
+
+                return;
+            }
+
+
+            /* Save the new account */
+
+            users.push({
+                name: name,
+                email: email,
+                password: password,
+                createdAt: new Date().toISOString()
+            });
+
+            saveUsers(users);
+
+
+            /* Show success and redirect to login */
 
             errorMessage.style.display = "none";
 
-            alert(
-                "Account creation will be connected to the backend soon."
-            );
+            successMessage.style.display = "block";
+
+            signupForm.reset();
+
+            setTimeout(function() {
+
+                window.location.href = "login.html";
+
+            }, 1500);
 
         });
 
