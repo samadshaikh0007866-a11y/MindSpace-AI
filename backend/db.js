@@ -9,8 +9,16 @@
 
 const Database = require("better-sqlite3");
 const path = require("path");
+const { OpenAI } = require("openai");
 
 const DB_PATH = path.join(__dirname, "data", "mindspace.db");
+
+/* ===== AI Companion Client ===== */
+
+const aiClient = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+    baseURL: process.env.OPENAI_API_BASE
+});
 
 /* Ensure the data folder exists */
 
@@ -49,6 +57,15 @@ db.exec(`
         id          INTEGER PRIMARY KEY AUTOINCREMENT,
         user_id     INTEGER NOT NULL,
         name        TEXT    NOT NULL,
+        created_at  TEXT    NOT NULL DEFAULT (datetime('now')),
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    );
+
+    CREATE TABLE IF NOT EXISTS chat_history (
+        id          INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id     INTEGER NOT NULL,
+        role        TEXT    NOT NULL,
+        content     TEXT    NOT NULL,
         created_at  TEXT    NOT NULL DEFAULT (datetime('now')),
         FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
     );
@@ -106,6 +123,21 @@ const stmts = {
         SELECT COUNT(*) AS total FROM activities
         WHERE user_id = ? AND date(created_at) = date('now')
     `),
+
+    saveChatMessage: db.prepare(
+        "INSERT INTO chat_history (user_id, role, content) VALUES (?, ?, ?)"
+    ),
+
+    getChatHistory: db.prepare(`
+        SELECT role, content FROM chat_history
+        WHERE user_id = ?
+        ORDER BY created_at ASC
+        LIMIT 50
+    `),
+
+    clearChatHistory: db.prepare(
+        "DELETE FROM chat_history WHERE user_id = ?"
+    ),
 };
 
-module.exports = { db, stmts };
+module.exports = { db, stmts, aiClient };

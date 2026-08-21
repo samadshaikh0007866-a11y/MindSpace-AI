@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Companion | MindSpace</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .bg-mindspace { background-color: #2d7a6e; }
+        .text-mindspace { color: #2d7a6e; }
+        .border-mindspace { border-color: #2d7a6e; }
+        .chat-container { height: calc(100vh - 250px); min-height: 400px; }
+        .message-bubble { max-width: 80%; }
+        .ai-message { background-color: #eef5f4; border-left: 4px solid #2d7a6e; }
+        .user-message { background-color: #2d7a6e; color: white; }
+        .suggestion-card:hover { border-color: #2d7a6e; background-color: #f0fdfa; }
+        .typing-indicator span {
+            width: 8px; height: 8px; background-color: #2d7a6e;
+            border-radius: 50%; display: inline-block;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1.0); }
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <a href="dashboard.html" class="text-2xl font-bold text-mindspace flex items-center">
+                        <span class="mr-2 text-3xl">🌿</span> MindSpace
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="dashboard.html" class="text-slate-600 hover:text-mindspace font-medium">Dashboard</a>
+                    <a href="mood-tracker.html" class="text-slate-600 hover:text-mindspace font-medium">Mood Tracker</a>
+                    <a href="ai-companion.html" class="text-mindspace font-semibold border-b-2 border-mindspace pb-1">AI Companion</a>
+                    <a href="wellness.html" class="text-slate-600 hover:text-mindspace font-medium">Wellness</a>
+                    <a href="insights.html" class="text-slate-600 hover:text-mindspace font-medium">Insights</a>
+                    <a href="settings.html" class="text-slate-600 hover:text-mindspace font-medium">Settings</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span id="userEmail" class="text-sm text-slate-500 hidden sm:inline"></span>
+                    <a href="#" id="logoutBtn" class="text-sm font-medium text-slate-600 hover:text-red-600">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            
+            <!-- Chat Section -->
+            <div class="flex-grow flex flex-col bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="p-4 border-b border-slate-200 bg-slate-50 flex justify-between items-center">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-mindspace flex items-center justify-center text-white text-xl mr-3">
+                            💬
+                        </div>
+                        <div>
+                            <h2 class="font-semibold">Wellness Companion</h2>
+                            <p class="text-xs text-slate-500">AI Support • Always here to listen</p>
+                        </div>
+                    </div>
+                    <button id="clearChatBtn" class="text-xs text-slate-400 hover:text-slate-600">Clear History</button>
+                </div>
+
+                <div id="chatWindow" class="chat-container p-6 overflow-y-auto space-y-4 flex flex-col">
+                    <!-- Messages will appear here -->
+                    <div class="ai-message message-bubble p-4 rounded-2xl rounded-tl-none self-start shadow-sm">
+                        <p class="text-sm">Hi there! I'm your MindSpace companion. How are you feeling today? I'm here to listen, support you, or suggest some wellness activities.</p>
+                    </div>
+                </div>
+
+                <div id="typingIndicator" class="px-6 py-2 hidden">
+                    <div class="typing-indicator flex space-x-1 items-center">
+                        <span class="opacity-60"></span>
+                        <span class="opacity-60"></span>
+                        <span class="opacity-60"></span>
+                        <span class="text-xs text-slate-400 ml-2">Companion is typing...</span>
+                    </div>
+                </div>
+
+                <div class="p-4 border-t border-slate-200 bg-white">
+                    <form id="chatForm" class="flex gap-2">
+                        <input type="text" id="messageInput" placeholder="Type your message..." 
+                            class="flex-grow px-4 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-mindspace focus:border-transparent">
+                        <button type="submit" class="bg-mindspace text-white px-6 py-2 rounded-xl font-medium hover:bg-opacity-90 transition-all">
+                            Send
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Suggestions Sidebar -->
+            <div class="lg:w-80 flex-shrink-0 space-y-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 class="font-bold text-lg mb-4 flex items-center">
+                        <span class="mr-2">✨</span> Personalized for You
+                    </h3>
+                    <p class="text-sm text-slate-500 mb-6">Based on your current mood and conversation, we recommend these activities:</p>
+                    
+                    <div id="suggestionsList" class="space-y-4">
+                        <!-- Suggestions will be injected here -->
+                        <div class="animate-pulse space-y-3">
+                            <div class="h-16 bg-slate-100 rounded-xl"></div>
+                            <div class="h-16 bg-slate-100 rounded-xl"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-emerald-50 p-6 rounded-2xl border border-emerald-100">
+                    <h4 class="font-bold text-emerald-800 mb-2 flex items-center">
+                        <span class="mr-2">🛡️</span> Safe Space
+                    </h4>
+                    <p class="text-xs text-emerald-700 leading-relaxed">
+                        MindSpace is a supportive tool, not a replacement for professional therapy. If you are in crisis, please contact emergency services or a crisis hotline immediately.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const API_BASE = "http://localhost:3000";
+        const chatWindow = document.getElementById("chatWindow");
+        const chatForm = document.getElementById("chatForm");
+        const messageInput = document.getElementById("messageInput");
+        const typingIndicator = document.getElementById("typingIndicator");
+        const suggestionsList = document.getElementById("suggestionsList");
+        const userEmail = document.getElementById("userEmail");
+        const logoutBtn = document.getElementById("logoutBtn");
+        const clearChatBtn = document.getElementById("clearChatBtn");
+
+        /* ===== Session Check ===== */
+        fetch(API_BASE + "/api/me", { credentials: "include" })
+            .then(res => res.ok ? res.json() : Promise.reject())
+            .then(data => {
+                userEmail.textContent = data.user.email;
+                loadChatHistory();
+                loadSuggestions();
+            })
+            .catch(() => window.location.href = "login.html");
+
+        /* ===== Chat Logic ===== */
+        function appendMessage(role, content) {
+            const div = document.createElement("div");
+            const isAI = role === "assistant";
+            div.className = `${isAI ? 'ai-message' : 'user-message'} message-bubble p-4 rounded-2xl ${isAI ? 'rounded-tl-none self-start' : 'rounded-tr-none self-end'} shadow-sm`;
+            
+            const p = document.createElement("p");
+            p.className = "text-sm whitespace-pre-wrap";
+            p.textContent = content;
+            
+            div.appendChild(p);
+            chatWindow.appendChild(div);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        function loadChatHistory() {
+            fetch(API_BASE + "/api/chat/history", { credentials: "include" })
+                .then(res => res.json())
+                .then(history => {
+                    if (history.length > 0) {
+                        chatWindow.innerHTML = ""; // Clear default greeting if history exists
+                        history.forEach(msg => appendMessage(msg.role, msg.content));
+                    }
+                });
+        }
+
+        chatForm.addEventListener("submit", e => {
+            e.preventDefault();
+            const message = messageInput.value.trim();
+            if (!message) return;
+
+            appendMessage("user", message);
+            messageInput.value = "";
+            typingIndicator.classList.remove("hidden");
+
+            fetch(API_BASE + "/api/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify({ message })
+            })
+            .then(res => res.json())
+            .then(data => {
+                typingIndicator.classList.add("hidden");
+                if (data.response) {
+                    appendMessage("assistant", data.response);
+                    // Refresh suggestions after some interaction
+                    if (Math.random() > 0.5) loadSuggestions();
+                } else if (data.error) {
+                    appendMessage("assistant", "Sorry, I encountered an error: " + data.error);
+                }
+            })
+            .catch(() => {
+                typingIndicator.classList.add("hidden");
+                appendMessage("assistant", "I'm having trouble connecting to the server. Please check your connection.");
+            });
+        });
+
+        clearChatBtn.addEventListener("click", () => {
+            if (confirm("Clear your conversation history?")) {
+                fetch(API_BASE + "/api/chat/history", { 
+                    method: "DELETE", 
+                    credentials: "include" 
+                }).then(() => {
+                    chatWindow.innerHTML = "";
+                    appendMessage("assistant", "History cleared. How can I help you now?");
+                });
+            }
+        });
+
+        /* ===== Suggestions Logic ===== */
+        function loadSuggestions() {
+            fetch(API_BASE + "/api/suggestions", { credentials: "include" })
+                .then(res => res.json())
+                .then(data => {
+                    suggestionsList.innerHTML = "";
+                    data.suggestions.forEach(s => {
+                        const div = document.createElement("div");
+                        div.className = "suggestion-card p-4 border border-slate-100 rounded-xl cursor-pointer transition-all";
+                        div.innerHTML = `
+                            <h4 class="font-semibold text-sm text-mindspace">${s.name}</h4>
+                            <p class="text-xs text-slate-500 mt-1">${s.reason}</p>
+                        `;
+                        div.onclick = () => {
+                            messageInput.value = `Tell me more about ${s.name}`;
+                            chatForm.dispatchEvent(new Event('submit'));
+                        };
+                        suggestionsList.appendChild(div);
+                    });
+                })
+                .catch(() => {
+                    suggestionsList.innerHTML = "<p class='text-xs text-slate-400'>Could not load suggestions.</p>";
+                });
+        }
+
+        /* ===== Logout ===== */
+        logoutBtn.addEventListener("click", e => {
+            e.preventDefault();
+            fetch(API_BASE + "/api/logout", { credentials: "include" })
+                .finally(() => window.location.href = "login.html");
+        });
+    </script>
+</body>
+</html>
