@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Wellness Activities | MindSpace</title>
+
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+
+        /* ================= WELLNESS PAGE ================= */
+
+        .wellness-page {
+            max-width: 1200px;
+            margin: auto;
+            padding: 45px 6%;
+        }
+
+        .wellness-heading {
+            margin-bottom: 35px;
+        }
+
+        .wellness-heading h1 {
+            font-size: 34px;
+            margin-bottom: 8px;
+        }
+
+        .wellness-heading p {
+            color: #71807b;
+            font-size: 15px;
+            max-width: 650px;
+        }
+
+
+        /* ================= ACTIVITY GRID ================= */
+
+        .activity-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+
+        /* ================= ACTIVITY CARD ================= */
+
+        .wellness-card-item {
+            background: white;
+
+            border: 1px solid #edf1ef;
+
+            border-radius: 22px;
+
+            padding: 30px;
+
+            transition: 0.3s;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        .wellness-card-item:hover {
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 12px 30px rgba(44, 92, 81, 0.08);
+        }
+
+
+        /* ================= ICON ================= */
+
+        .activity-large-icon {
+            width: 65px;
+            height: 65px;
+
+            border-radius: 18px;
+
+            background: #e4f3ef;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 31px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .wellness-card-item h2 {
+            font-size: 21px;
+
+            margin-bottom: 8px;
+        }
+
+        .wellness-card-item > p {
+            color: #71807b;
+
+            font-size: 14px;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* ================= DETAILS ================= */
+
+        .activity-details {
+            display: flex;
+
+            gap: 15px;
+
+            margin-bottom: 25px;
+        }
+
+        .detail {
+            padding: 6px 10px;
+
+            border-radius: 15px;
+
+            background: #f3f8f6;
+
+            color: #64746f;
+
+            font-size: 11px;
+        }
+
+
+        /* ================= START BUTTON ================= */
+
+        .start-activity {
+            width: 100%;
+
+            padding: 12px;
+
+            border: none;
+
+            border-radius: 25px;
+
+            background: #3d8172;
+
+            color: white;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            margin-top: auto;
+
+            transition: 0.3s;
+        }
+
+        .start-activity:hover {
+            background: #316b5e;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* ================= ACTIVITY MODAL ================= */
+
+        .activity-modal {
+            display: none;
+
+            position: fixed;
+
+            inset: 0;
+
+            background: rgba(30, 50, 45, 0.45);
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            z-index: 2000;
+        }
+
+        .modal-content {
+            width: 100%;
+            max-width: 500px;
+
+            background: white;
+
+            border-radius: 25px;
+
+            padding: 35px;
+
+            text-align: center;
+
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+
+            top: 15px;
+            right: 18px;
+
+            width: 32px;
+            height: 32px;
+
+            border: none;
+
+            background: #f3f7f5;
+
+            border-radius: 50%;
+
+            cursor: pointer;
+
+            color: #52635e;
+
+            font-size: 17px;
+        }
+
+        .modal-icon {
+            width: 80px;
+            height: 80px;
+
+            margin: 5px auto 20px;
+
+            border-radius: 22px;
+
+            background: #e4f3ef;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 38px;
+        }
+
+        .modal-content h2 {
+            font-size: 25px;
+
+            margin-bottom: 8px;
+        }
+
+        .modal-content p {
+            color: #71807b;
+
+            font-size: 14px;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* ================= TIMER ================= */
+
+        .timer {
+            font-size: 50px;
+
+            font-weight: 700;
+
+            color: #3d8172;
+
+            margin-bottom: 20px;
+        }
+
+        .timer-controls {
+            display: flex;
+
+            justify-content: center;
+
+            gap: 10px;
+        }
+
+        .timer-btn {
+            padding: 10px 22px;
+
+            border: none;
+
+            border-radius: 22px;
+
+            background: #3d8172;
+
+            color: white;
+
+            cursor: pointer;
+
+            font-weight: 600;
+        }
+
+        .timer-btn.secondary {
+            background: #edf5f2;
+
+            color: #3d8172;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 950px) {
+
+            .activity-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            .activity-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .wellness-page {
+                padding: 30px 5%;
+            }
+
+            .wellness-heading h1 {
+                font-size: 28px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <a href="dashboard.html" class="logo">
+            MindSpace
+        </a>
+
+        <nav class="nav-links">
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="mood-tracker.html">
+                Mood Tracker
+            </a>
+
+            <a href="ai-companion.html">
+                AI Companion
+            </a>
+
+            <a href="wellness.html">
+                Wellness
+            </a>
+
+            <a href="insights.html">
+                Insights
+            </a>
+
+            <a href="settings.html">
+                Settings
+            </a>
+
+            <a href="login.html" class="login-btn">
+                Logout
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="wellness-page">
+
+
+        <!-- Heading -->
+
+        <section class="wellness-heading">
+
+            <h1>
+                Wellness Activities
+            </h1>
+
+            <p>
+                Take a few minutes for yourself. Explore simple
+                activities designed to help you relax, slow down,
+                and practice mindfulness.
+            </p>
+
+        </section>
+
+
+        <!-- ================= ACTIVITIES ================= -->
+
+        <section class="activity-grid">
+
+
+            <!-- Breathing -->
+
+            <article class="wellness-card-item">
+
+                <div class="activity-large-icon">
+                    🌬️
+                </div>
+
+                <h2>
+                    Breathing Exercise
+                </h2>
+
+                <p>
+                    Practice slow, controlled breathing to help
+                    create a moment of calm and relaxation.
+                </p>
+
+                <div class="activity-details">
+
+                    <span class="detail">
+                        ⏱ 3 minutes
+                    </span>
+
+                    <span class="detail">
+                        Beginner
+                    </span>
+
+                </div>
+
+                <button
+                    class="start-activity"
+                    onclick="openActivity(
+                        'Breathing Exercise',
+                        '🌬️',
+                        180
+                    )"
+                >
+                    Start Activity
+                </button>
+
+            </article>
+
+
+            <!-- Mindfulness -->
+
+            <article class="wellness-card-item">
+
+                <div class="activity-large-icon">
+                    🧘
+                </div>
+
+                <h2>
+                    Mindfulness
+                </h2>
+
+                <p>
+                    Take a short break to focus your attention
+                    on the present moment.
+                </p>
+
+                <div class="activity-details">
+
+                    <span class="detail">
+                        ⏱ 5 minutes
+                    </span>
+
+                    <span class="detail">
+                        Beginner
+                    </span>
+
+                </div>
+
+                <button
+                    class="start-activity"
+                    onclick="openActivity(
+                        'Mindfulness',
+                        '🧘',
+                        300
+                    )"
+                >
+                    Start Activity
+                </button>
+
+            </article>
+
+
+            <!-- Relaxation -->
+
+            <article class="wellness-card-item">
+
+                <div class="activity-large-icon">
+                    🌿
+                </div>
+
+                <h2>
+                    Relaxation
+                </h2>
+
+                <p>
+                    Give yourself a quiet moment to slow down
+                    and relax.
+                </p>
+
+                <div class="activity-details">
+
+                    <span class="detail">
+                        ⏱ 5 minutes
+                    </span>
+
+                    <span class="detail">
+                        Beginner
+                    </span>
+
+                </div>
+
+                <button
+                    class="start-activity"
+                    onclick="openActivity(
+                        'Relaxation',
+                        '🌿',
+                        300
+                    )"
+                >
+                    Start Activity
+                </button>
+
+            </article>
+
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= ACTIVITY MODAL ================= -->
+
+    <div
+        class="activity-modal"
+        id="activityModal"
+    >
+
+        <div class="modal-content">
+
+            <button
+                class="close-modal"
+                onclick="closeActivity()"
+            >
+                ×
+            </button>
+
+
+            <div
+                class="modal-icon"
+                id="modalIcon"
+            >
+                🌬️
+            </div>
+
+
+            <h2 id="modalTitle">
+                Breathing Exercise
+            </h2>
+
+
+            <p id="modalDescription">
+                Take your time and focus on the activity.
+            </p>
+
+
+            <div
+                class="timer"
+                id="timer"
+            >
+                03:00
+            </div>
+
+
+            <div class="timer-controls">
+
+                <button
+                    class="timer-btn"
+                    id="startTimerBtn"
+                    onclick="startTimer()"
+                >
+                    Start
+                </button>
+
+                <button
+                    class="timer-btn secondary"
+                    onclick="resetTimer()"
+                >
+                    Reset
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <p>
+            © 2026 MindSpace. All rights reserved.
+        </p>
+
+        <p>
+            Your space for better well-being.
+        </p>
+
+    </footer>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+        let timerInterval = null;
+
+        let remainingSeconds = 0;
+
+        let originalSeconds = 0;
+
+
+        const activityModal =
+            document.getElementById("activityModal");
+
+        const modalTitle =
+            document.getElementById("modalTitle");
+
+        const modalIcon =
+            document.getElementById("modalIcon");
+
+        const timer =
+            document.getElementById("timer");
+
+        const startTimerBtn =
+            document.getElementById("startTimerBtn");
+
+
+        /* ================= OPEN ACTIVITY ================= */
+
+        function openActivity(title, icon, seconds) {
+
+            modalTitle.textContent = title;
+
+            modalIcon.textContent = icon;
+
+            originalSeconds = seconds;
+
+            remainingSeconds = seconds;
+
+            updateTimer();
+
+            startTimerBtn.textContent = "Start";
+
+            activityModal.style.display = "flex";
+
+        }
+
+
+        /* ================= CLOSE ================= */
+
+        function closeActivity() {
+
+            clearInterval(timerInterval);
+
+            timerInterval = null;
+
+            activityModal.style.display = "none";
+
+        }
+
+
+        /* ================= START TIMER ================= */
+
+        function startTimer() {
+
+            if (timerInterval) {
+
+                clearInterval(timerInterval);
+
+                timerInterval = null;
+
+                startTimerBtn.textContent = "Resume";
+
+                return;
+            }
+
+
+            startTimerBtn.textContent = "Pause";
+
+
+            timerInterval = setInterval(function() {
+
+                if (remainingSeconds > 0) {
+
+                    remainingSeconds--;
+
+                    updateTimer();
+
+                } else {
+
+                    clearInterval(timerInterval);
+
+                    timerInterval = null;
+
+                    startTimerBtn.textContent = "Completed";
+
+                    alert(
+                        "Great job! You completed the activity."
+                    );
+
+                }
+
+            }, 1000);
+
+        }
+
+
+        /* ================= RESET ================= */
+
+        function resetTimer() {
+
+            clearInterval(timerInterval);
+
+            timerInterval = null;
+
+            remainingSeconds = originalSeconds;
+
+            updateTimer();
+
+            startTimerBtn.textContent = "Start";
+
+        }
+
+
+        /* ================= UPDATE TIMER ================= */
+
+        function updateTimer() {
+
+            const minutes =
+                Math.floor(remainingSeconds / 60);
+
+            const seconds =
+                remainingSeconds % 60;
+
+
+            timer.textContent =
+                String(minutes).padStart(2, "0")
+                + ":" +
+                String(seconds).padStart(2, "0");
+
+        }
+
+
+        /* ================= OUTSIDE CLICK ================= */
+
+        activityModal.addEventListener(
+            "click",
+            function(event) {
+
+                if (event.target === activityModal) {
+
+                    closeActivity();
+
+                }
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>

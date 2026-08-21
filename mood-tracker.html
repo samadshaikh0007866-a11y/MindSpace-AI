@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mood Tracker | MindSpace</title>
+
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* ================= MOOD TRACKER ================= */
+
+        .mood-page {
+            max-width: 1200px;
+            margin: auto;
+            padding: 45px 6%;
+        }
+
+        .page-heading {
+            margin-bottom: 30px;
+        }
+
+        .page-heading h1 {
+            font-size: 34px;
+            margin-bottom: 8px;
+        }
+
+        .page-heading p {
+            color: #71807b;
+            font-size: 15px;
+        }
+
+        /* ================= CHECK-IN ================= */
+
+        .mood-checkin {
+            background: white;
+            border: 1px solid #edf1ef;
+            border-radius: 22px;
+            padding: 35px;
+            margin-bottom: 25px;
+        }
+
+        .mood-checkin h2 {
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .checkin-description {
+            color: #71807b;
+            font-size: 14px;
+            margin-bottom: 28px;
+        }
+
+        .mood-selection {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+        }
+
+        .mood-option {
+            border: 1px solid #e1e9e6;
+            background: #fafcfb;
+            border-radius: 18px;
+            padding: 22px 10px;
+            cursor: pointer;
+            text-align: center;
+            transition: 0.25s;
+        }
+
+        .mood-option:hover {
+            border-color: #3d8172;
+            background: #eef8f5;
+            transform: translateY(-3px);
+        }
+
+        .mood-option.selected {
+            border: 2px solid #3d8172;
+            background: #dff1eb;
+        }
+
+        .mood-emoji {
+            display: block;
+            font-size: 38px;
+            margin-bottom: 8px;
+        }
+
+        .mood-name {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #40504c;
+        }
+
+        /* ================= NOTE ================= */
+
+        .mood-note {
+            margin-top: 30px;
+        }
+
+        .mood-note label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 9px;
+        }
+
+        .mood-note textarea {
+            width: 100%;
+            min-height: 100px;
+            resize: vertical;
+
+            border: 1px solid #d8e3df;
+            border-radius: 12px;
+
+            padding: 14px;
+
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+
+            outline: none;
+        }
+
+        .mood-note textarea:focus {
+            border-color: #3d8172;
+            box-shadow: 0 0 0 3px rgba(61, 129, 114, 0.1);
+        }
+
+        .save-mood {
+            margin-top: 20px;
+
+            padding: 12px 25px;
+
+            border: none;
+            border-radius: 25px;
+
+            background: #3d8172;
+            color: white;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .save-mood:hover {
+            background: #316b5e;
+            transform: translateY(-1px);
+        }
+
+        /* ================= HISTORY ================= */
+
+        .history-card {
+            background: white;
+            border: 1px solid #edf1ef;
+            border-radius: 22px;
+            padding: 30px;
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 25px;
+        }
+
+        .history-header h2 {
+            font-size: 21px;
+        }
+
+        .history-header span {
+            color: #71807b;
+            font-size: 13px;
+        }
+
+        .history-item {
+            display: flex;
+            align-items: center;
+
+            gap: 18px;
+
+            padding: 18px 0;
+
+            border-bottom: 1px solid #edf1ef;
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
+        }
+
+        .history-emoji {
+            width: 50px;
+            height: 50px;
+
+            background: #eaf6f2;
+
+            border-radius: 14px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 27px;
+        }
+
+        .history-info {
+            flex: 1;
+        }
+
+        .history-info h3 {
+            font-size: 15px;
+            margin-bottom: 3px;
+        }
+
+        .history-info p {
+            color: #71807b;
+            font-size: 12px;
+        }
+
+        .history-date {
+            color: #8a9692;
+            font-size: 12px;
+        }
+
+        .empty-history {
+            text-align: center;
+            padding: 35px;
+            color: #71807b;
+            display: none;
+        }
+
+        /* ================= MESSAGE ================= */
+
+        .success-message {
+            display: none;
+
+            margin-top: 15px;
+
+            padding: 12px;
+
+            border-radius: 10px;
+
+            background: #eaf6f2;
+            color: #357566;
+
+            font-size: 13px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 800px) {
+
+            .mood-selection {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+        }
+
+        @media (max-width: 500px) {
+
+            .mood-page {
+                padding: 30px 5%;
+            }
+
+            .page-heading h1 {
+                font-size: 28px;
+            }
+
+            .mood-checkin,
+            .history-card {
+                padding: 22px;
+            }
+
+            .mood-selection {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .history-item {
+                gap: 12px;
+            }
+
+            .history-date {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <a href="dashboard.html" class="logo">
+            MindSpace
+        </a>
+
+        <nav class="nav-links">
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="mood-tracker.html">
+                Mood Tracker
+            </a>
+
+            <a href="ai-companion.html">
+                AI Companion
+            </a>
+
+            <a href="wellness.html">
+                Wellness
+            </a>
+
+            <a href="insights.html">
+                Insights
+            </a>
+
+            <a href="settings.html">
+                Settings
+            </a>
+
+            <a href="login.html" class="login-btn">
+                Logout
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="mood-page">
+
+        <!-- Page Heading -->
+
+        <section class="page-heading">
+
+            <h1>
+                Mood Tracker
+            </h1>
+
+            <p>
+                Take a moment to check in with yourself and
+                record how you're feeling today.
+            </p>
+
+        </section>
+
+
+        <!-- ================= MOOD CHECK-IN ================= -->
+
+        <section class="mood-checkin">
+
+            <h2>
+                How are you feeling right now?
+            </h2>
+
+            <p class="checkin-description">
+                There are no right or wrong answers. Choose the
+                option that feels closest to how you feel.
+            </p>
+
+
+            <div class="mood-selection">
+
+                <div class="mood-option"
+                     data-mood="Great"
+                     onclick="selectMood(this)">
+
+                    <span class="mood-emoji">
+                        😄
+                    </span>
+
+                    <span class="mood-name">
+                        Great
+                    </span>
+
+                </div>
+
+
+                <div class="mood-option"
+                     data-mood="Good"
+                     onclick="selectMood(this)">
+
+                    <span class="mood-emoji">
+                        🙂
+                    </span>
+
+                    <span class="mood-name">
+                        Good
+                    </span>
+
+                </div>
+
+
+                <div class="mood-option"
+                     data-mood="Okay"
+                     onclick="selectMood(this)">
+
+                    <span class="mood-emoji">
+                        😐
+                    </span>
+
+                    <span class="mood-name">
+                        Okay
+                    </span>
+
+                </div>
+
+
+                <div class="mood-option"
+                     data-mood="Low"
+                     onclick="selectMood(this)">
+
+                    <span class="mood-emoji">
+                        😔
+                    </span>
+
+                    <span class="mood-name">
+                        Low
+                    </span>
+
+                </div>
+
+
+                <div class="mood-option"
+                     data-mood="Angry"
+                     onclick="selectMood(this)">
+
+                    <span class="mood-emoji">
+                        😠
+                    </span>
+
+                    <span class="mood-name">
+                        Angry
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Optional note -->
+
+            <div class="mood-note">
+
+                <label for="moodNote">
+                    Add a note
+                    <span style="font-weight: normal; color: #8a9692;">
+                        (optional)
+                    </span>
+                </label>
+
+                <textarea
+                    id="moodNote"
+                    placeholder="You can briefly describe what is on your mind..."
+                ></textarea>
+
+            </div>
+
+
+            <button
+                class="save-mood"
+                onclick="saveMood()"
+            >
+                Save Mood
+            </button>
+
+
+            <div
+                class="success-message"
+                id="successMessage"
+            >
+                Your mood has been recorded successfully.
+            </div>
+
+        </section>
+
+
+        <!-- ================= MOOD HISTORY ================= -->
+
+        <section class="history-card">
+
+            <div class="history-header">
+
+                <h2>
+                    Recent Mood History
+                </h2>
+
+                <span>
+                    Your recent check-ins
+                </span>
+
+            </div>
+
+
+            <!-- History Item -->
+
+            <div class="history-item">
+
+                <div class="history-emoji">
+                    🙂
+                </div>
+
+                <div class="history-info">
+
+                    <h3>
+                        Good
+                    </h3>
+
+                    <p>
+                        Feeling positive and productive today.
+                    </p>
+
+                </div>
+
+                <div class="history-date">
+                    Today
+                </div>
+
+            </div>
+
+
+            <!-- History Item -->
+
+            <div class="history-item">
+
+                <div class="history-emoji">
+                    😄
+                </div>
+
+                <div class="history-info">
+
+                    <h3>
+                        Great
+                    </h3>
+
+                    <p>
+                        Had a good day.
+                    </p>
+
+                </div>
+
+                <div class="history-date">
+                    Yesterday
+                </div>
+
+            </div>
+
+
+            <!-- History Item -->
+
+            <div class="history-item">
+
+                <div class="history-emoji">
+                    😐
+                </div>
+
+                <div class="history-info">
+
+                    <h3>
+                        Okay
+                    </h3>
+
+                    <p>
+                        Nothing unusual today.
+                    </p>
+
+                </div>
+
+                <div class="history-date">
+                    2 days ago
+                </div>
+
+            </div>
+
+
+            <div
+                class="empty-history"
+                id="emptyHistory"
+            >
+                No mood entries yet. Your first check-in will
+                appear here.
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <p>
+            © 2026 MindSpace. All rights reserved.
+        </p>
+
+        <p>
+            Your space for better well-being.
+        </p>
+
+    </footer>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+        let selectedMood = null;
+
+
+        function selectMood(element) {
+
+            const moodOptions =
+                document.querySelectorAll(".mood-option");
+
+            moodOptions.forEach(function(option) {
+
+                option.classList.remove("selected");
+
+            });
+
+
+            element.classList.add("selected");
+
+            selectedMood =
+                element.getAttribute("data-mood");
+
+        }
+
+
+        function saveMood() {
+
+            const note =
+                document.getElementById("moodNote").value.trim();
+
+            const successMessage =
+                document.getElementById("successMessage");
+
+
+            if (!selectedMood) {
+
+                alert("Please select your current mood.");
+
+                return;
+            }
+
+
+            /*
+             * Backend/database functionality
+             * will be connected later.
+             */
+
+            successMessage.textContent =
+                "Your " +
+                selectedMood.toLowerCase() +
+                " mood has been recorded successfully.";
+
+            successMessage.style.display = "block";
+
+
+            document.getElementById("moodNote").value = "";
+
+
+            setTimeout(function() {
+
+                successMessage.style.display = "none";
+
+            }, 4000);
+
+        }
+
+    </script>
+
+</body>
+
+</html>

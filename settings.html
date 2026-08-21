@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Settings | MindSpace</title>
+
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+
+        /* ================= SETTINGS PAGE ================= */
+
+        .settings-page {
+            max-width: 1000px;
+            margin: auto;
+            padding: 45px 6%;
+        }
+
+        .settings-heading {
+            margin-bottom: 35px;
+        }
+
+        .settings-heading h1 {
+            font-size: 34px;
+            margin-bottom: 8px;
+        }
+
+        .settings-heading p {
+            color: #71807b;
+            font-size: 15px;
+        }
+
+
+        /* ================= SETTINGS CARD ================= */
+
+        .settings-card {
+            background: white;
+
+            border: 1px solid #edf1ef;
+
+            border-radius: 20px;
+
+            margin-bottom: 22px;
+
+            overflow: hidden;
+        }
+
+        .settings-card-header {
+            padding: 22px 25px;
+
+            border-bottom: 1px solid #edf1ef;
+        }
+
+        .settings-card-header h2 {
+            font-size: 19px;
+            margin-bottom: 4px;
+        }
+
+        .settings-card-header p {
+            color: #71807b;
+            font-size: 12px;
+        }
+
+
+        /* ================= SETTING ROW ================= */
+
+        .setting-row {
+            padding: 20px 25px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            border-bottom: 1px solid #edf1ef;
+        }
+
+        .setting-row:last-child {
+            border-bottom: none;
+        }
+
+        .setting-info {
+            flex: 1;
+        }
+
+        .setting-info h3 {
+            font-size: 14px;
+
+            margin-bottom: 4px;
+        }
+
+        .setting-info p {
+            color: #71807b;
+
+            font-size: 12px;
+        }
+
+
+        /* ================= ACCOUNT INFO ================= */
+
+        .account-value {
+            color: #52635e;
+
+            font-size: 14px;
+
+            background: #f5f9f7;
+
+            padding: 9px 13px;
+
+            border-radius: 9px;
+        }
+
+
+        /* ================= TOGGLE ================= */
+
+        .toggle {
+            position: relative;
+
+            width: 48px;
+            height: 26px;
+
+            flex-shrink: 0;
+        }
+
+        .toggle input {
+            opacity: 0;
+
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+
+            cursor: pointer;
+
+            inset: 0;
+
+            background: #dce5e1;
+
+            border-radius: 30px;
+
+            transition: 0.3s;
+        }
+
+        .slider:before {
+            content: "";
+
+            position: absolute;
+
+            height: 20px;
+            width: 20px;
+
+            left: 3px;
+            top: 3px;
+
+            background: white;
+
+            border-radius: 50%;
+
+            transition: 0.3s;
+
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+        }
+
+        .toggle input:checked + .slider {
+            background: #3d8172;
+        }
+
+        .toggle input:checked + .slider:before {
+            transform: translateX(22px);
+        }
+
+
+        /* ================= BUTTONS ================= */
+
+        .settings-button {
+            border: none;
+
+            padding: 9px 17px;
+
+            border-radius: 20px;
+
+            background: #edf5f2;
+
+            color: #3d8172;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .settings-button:hover {
+            background: #dff1eb;
+        }
+
+
+        .logout-button {
+            background: #f3f6f5;
+
+            color: #52635e;
+        }
+
+        .logout-button:hover {
+            background: #e6eeeb;
+        }
+
+
+        /* ================= DANGER ZONE ================= */
+
+        .danger-card {
+            border-color: #f0dddd;
+        }
+
+        .danger-card .settings-card-header h2 {
+            color: #9d5555;
+        }
+
+        .delete-button {
+            border: none;
+
+            padding: 9px 17px;
+
+            border-radius: 20px;
+
+            background: #fff0f0;
+
+            color: #b34f4f;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .delete-button:hover {
+            background: #ffe2e2;
+        }
+
+
+        /* ================= MODAL ================= */
+
+        .delete-modal {
+            display: none;
+
+            position: fixed;
+
+            inset: 0;
+
+            background: rgba(30, 45, 40, 0.45);
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            z-index: 2000;
+        }
+
+        .delete-modal-content {
+            width: 100%;
+
+            max-width: 430px;
+
+            background: white;
+
+            border-radius: 22px;
+
+            padding: 30px;
+
+            text-align: center;
+        }
+
+        .warning-icon {
+            width: 60px;
+            height: 60px;
+
+            margin: 0 auto 18px;
+
+            background: #fff0f0;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 26px;
+        }
+
+        .delete-modal-content h2 {
+            font-size: 21px;
+
+            margin-bottom: 8px;
+        }
+
+        .delete-modal-content p {
+            color: #71807b;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+
+            margin-bottom: 25px;
+        }
+
+        .modal-buttons {
+            display: flex;
+
+            justify-content: center;
+
+            gap: 10px;
+        }
+
+        .cancel-button {
+            border: none;
+
+            padding: 10px 20px;
+
+            border-radius: 20px;
+
+            background: #edf5f2;
+
+            color: #52635e;
+
+            cursor: pointer;
+
+            font-weight: 600;
+
+            font-size: 12px;
+        }
+
+        .confirm-delete {
+            border: none;
+
+            padding: 10px 20px;
+
+            border-radius: 20px;
+
+            background: #b34f4f;
+
+            color: white;
+
+            cursor: pointer;
+
+            font-weight: 600;
+
+            font-size: 12px;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 650px) {
+
+            .settings-page {
+                padding: 30px 5%;
+            }
+
+            .settings-heading h1 {
+                font-size: 28px;
+            }
+
+            .setting-row {
+                padding: 18px;
+            }
+
+            .setting-row {
+                align-items: flex-start;
+            }
+
+            .account-value {
+                max-width: 180px;
+
+                word-break: break-word;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <a href="dashboard.html" class="logo">
+            MindSpace
+        </a>
+
+        <nav class="nav-links">
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="mood-tracker.html">
+                Mood Tracker
+            </a>
+
+            <a href="ai-companion.html">
+                AI Companion
+            </a>
+
+            <a href="wellness.html">
+                Wellness
+            </a>
+
+            <a href="insights.html">
+                Insights
+            </a>
+
+            <a href="settings.html">
+                Settings
+            </a>
+
+            <a href="login.html" class="login-btn">
+                Logout
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="settings-page">
+
+
+        <!-- Heading -->
+
+        <section class="settings-heading">
+
+            <h1>
+                Settings
+            </h1>
+
+            <p>
+                Manage your account, privacy, and notification
+                preferences.
+            </p>
+
+        </section>
+
+
+        <!-- ================= ACCOUNT ================= -->
+
+        <section class="settings-card">
+
+
+            <div class="settings-card-header">
+
+                <h2>
+                    Account
+                </h2>
+
+                <p>
+                    Your basic account information.
+                </p>
+
+            </div>
+
+
+            <!-- Name -->
+
+            <div class="setting-row">
+
+                <div class="setting-info">
+
+                    <h3>
+                        Name
+                    </h3>
+
+                    <p>
+                        Your account name
+                    </p>
+
+                </div>
+
+                <div class="account-value">
+                    User
+                </div>
+
+            </div>
+
+
+            <!-- Email -->
+
+            <div class="setting-row">
+
+                <div class="setting-info">
+
+                    <h3>
+                        Email
+                    </h3>
+
+                    <p>
+                        Your registered email address
+                    </p>
+
+                </div>
+
+                <div class="account-value">
+                    user@example.com
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- ================= PRIVACY ================= -->
+
+        <section class="settings-card">
+
+
+            <div class="settings-card-header">
+
+                <h2>
+                    Privacy
+                </h2>
+
+                <p>
+                    Control how your MindSpace data is handled.
+                </p>
+
+            </div>
+
+
+            <!-- Data storage -->
+
+            <div class="setting-row">
+
+                <div class="setting-info">
+
+                    <h3>
+                        Save Wellness Data
+                    </h3>
+
+                    <p>
+                        Allow MindSpace to save your mood and
+                        wellness activity data.
+                    </p>
+
+                </div>
+
+                <label class="toggle">
+
+                    <input
+                        type="checkbox"
+                        checked
+                        id="dataStorage"
+                    >
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+
+            <!-- AI data -->
+
+            <div class="setting-row">
+
+                <div class="setting-info">
+
+                    <h3>
+                        AI Conversation Data
+                    </h3>
+
+                    <p>
+                        Allow conversations with the AI companion
+                        to be processed to provide responses.
+                    </p>
+
+                </div>
+
+                <label class="toggle">
+
+                    <input
+                        type="checkbox"
+                        checked
+                        id="aiData"
+                    >
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- ================= NOTIFICATIONS ================= -->
+
+        <section class="settings-card">
+
+
+            <div class="settings-card-header">
+
+                <h2>
+                    Notifications
+                </h2>
+
+                <p>
+                    Manage your MindSpace notifications.
+                </p>
+
+            </div>
+
+
+            <!-- Wellness reminders -->
+
+            <div class="setting-row">
+
+                <div class="setting-info">
+
+                    <h3>
+                        Wellness Reminders
+                    </h3>
+
+                    <p>
+                        Receive reminders to take a wellness break.
+                    </p>
+
+                </div>
+
+                <label class="toggle">
+
+                    <input
+                        type="checkbox"
+                        id="wellnessNotifications"
+                    >
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+
+            <!-- Mood reminder -->
+
+            <div class="setting-row">
+
+                <div class="setting-info">
+
+                    <h3>
+                        Mood Check-in Reminder
+                    </h3>
+
+                    <p>
+                        Receive a reminder to record your mood.
+                    </p>
+
+                </div>
+
+                <label class="toggle">
+
+                    <input
+                        type="checkbox"
+                        id="moodNotifications"
+                    >
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- ================= SESSION ================= -->
+
+        <section class="settings-card">
+
+
+            <div class="settings-card-header">
+
+                <h2>
+                    Session
+                </h2>
+
+                <p>
+                    Manage your current MindSpace session.
+                </p>
+
+            </div>
+
+
+            <div class="setting-row">
+
+                <div class="setting-info">
+
+                    <h3>
+                        Log Out
+                    </h3>
+
+                    <p>
+                        Sign out of your MindSpace account.
+                    </p>
+
+                </div>
+
+                <button
+                    class="settings-button logout-button"
+                    onclick="logoutUser()"
+                >
+                    Log Out
+                </button>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- ================= DANGER ZONE ================= -->
+
+        <section class="settings-card danger-card">
+
+
+            <div class="settings-card-header">
+
+                <h2>
+                    Delete Account
+                </h2>
+
+                <p>
+                    Permanently remove your MindSpace account
+                    and associated data.
+                </p>
+
+            </div>
+
+
+            <div class="setting-row">
+
+                <div class="setting-info">
+
+                    <h3>
+                        Permanently Delete Account
+                    </h3>
+
+                    <p>
+                        This action cannot be undone.
+                    </p>
+
+                </div>
+
+                <button
+                    class="delete-button"
+                    onclick="openDeleteModal()"
+                >
+                    Delete Account
+                </button>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+    <!-- ================= DELETE MODAL ================= -->
+
+    <div
+        class="delete-modal"
+        id="deleteModal"
+    >
+
+        <div class="delete-modal-content">
+
+            <div class="warning-icon">
+                ⚠️
+            </div>
+
+            <h2>
+                Delete your account?
+            </h2>
+
+            <p>
+                This will permanently remove your account and
+                associated MindSpace data. This action cannot
+                be undone.
+            </p>
+
+            <div class="modal-buttons">
+
+                <button
+                    class="cancel-button"
+                    onclick="closeDeleteModal()"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    class="confirm-delete"
+                    onclick="deleteAccount()"
+                >
+                    Delete Account
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <p>
+            © 2026 MindSpace. All rights reserved.
+        </p>
+
+        <p>
+            Your space for better well-being.
+        </p>
+
+    </footer>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+        /* ================= LOGOUT ================= */
+
+        function logoutUser() {
+
+            /*
+             * Authentication will be connected later.
+             */
+
+            window.location.href = "login.html";
+
+        }
+
+
+        /* ================= DELETE MODAL ================= */
+
+        function openDeleteModal() {
+
+            document.getElementById(
+                "deleteModal"
+            ).style.display = "flex";
+
+        }
+
+
+        function closeDeleteModal() {
+
+            document.getElementById(
+                "deleteModal"
+            ).style.display = "none";
+
+        }
+
+
+        /* ================= DELETE ACCOUNT ================= */
+
+        function deleteAccount() {
+
+            const currentUser = JSON.parse(
+                localStorage.getItem("mindspaceCurrentUser") || "null"
+            );
+
+            if (!currentUser || !currentUser.email) {
+                window.location.href = "login.html";
+                return;
+            }
+
+            const users = JSON.parse(
+                localStorage.getItem("mindspaceUsers") || "[]"
+            );
+            const remainingUsers = users.filter(function(user) {
+                return user.email !== currentUser.email;
+            });
+
+            localStorage.setItem(
+                "mindspaceUsers",
+                JSON.stringify(remainingUsers)
+            );
+            localStorage.removeItem("mindspaceCurrentUser");
+
+            closeDeleteModal();
+            window.location.href = "login.html";
+
+        }
+
+
+        /* ================= OUTSIDE CLICK ================= */
+
+        document
+            .getElementById("deleteModal")
+            .addEventListener(
+                "click",
+                function(event) {
+
+                    if (
+                        event.target ===
+                        document.getElementById("deleteModal")
+                    ) {
+
+                        closeDeleteModal();
+
+                    }
+
+                }
+            );
+
+    </script>
+
+
+</body>
+
+</html>

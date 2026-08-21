@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Companion | MindSpace</title>
+
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+
+        /* ================= AI COMPANION ================= */
+
+        .companion-page {
+            max-width: 1100px;
+            margin: auto;
+            padding: 35px 6%;
+        }
+
+        .companion-heading {
+            margin-bottom: 25px;
+        }
+
+        .companion-heading h1 {
+            font-size: 32px;
+            margin-bottom: 6px;
+        }
+
+        .companion-heading p {
+            color: #71807b;
+            font-size: 14px;
+        }
+
+
+        /* ================= CHAT CONTAINER ================= */
+
+        .chat-container {
+            height: 650px;
+
+            background: white;
+
+            border: 1px solid #edf1ef;
+
+            border-radius: 22px;
+
+            display: flex;
+            flex-direction: column;
+
+            overflow: hidden;
+
+            box-shadow: 0 8px 30px rgba(44, 92, 81, 0.06);
+        }
+
+
+        /* ================= CHAT HEADER ================= */
+
+        .chat-header {
+            padding: 18px 25px;
+
+            border-bottom: 1px solid #edf1ef;
+
+            display: flex;
+            align-items: center;
+
+            gap: 15px;
+        }
+
+        .companion-icon {
+            width: 48px;
+            height: 48px;
+
+            border-radius: 15px;
+
+            background: #e4f3ef;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 24px;
+        }
+
+        .companion-info h2 {
+            font-size: 17px;
+            margin-bottom: 2px;
+        }
+
+        .companion-status {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            color: #71807b;
+
+            font-size: 12px;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+
+            background: #5ba88f;
+
+            border-radius: 50%;
+        }
+
+
+        /* ================= CHAT AREA ================= */
+
+        .chat-messages {
+            flex: 1;
+
+            padding: 25px;
+
+            overflow-y: auto;
+
+            background: #fbfcfc;
+        }
+
+
+        /* ================= MESSAGE ================= */
+
+        .message {
+            display: flex;
+
+            margin-bottom: 20px;
+        }
+
+        .message.ai {
+            justify-content: flex-start;
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message-bubble {
+            max-width: 70%;
+
+            padding: 13px 17px;
+
+            border-radius: 17px;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+        }
+
+        .message.ai .message-bubble {
+            background: #eaf6f2;
+
+            border-bottom-left-radius: 5px;
+
+            color: #344842;
+        }
+
+        .message.user .message-bubble {
+            background: #3d8172;
+
+            color: white;
+
+            border-bottom-right-radius: 5px;
+        }
+
+
+        /* ================= INPUT ================= */
+
+        .chat-input-area {
+            padding: 18px 20px;
+
+            background: white;
+
+            border-top: 1px solid #edf1ef;
+        }
+
+        .chat-form {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+
+            padding: 13px 17px;
+
+            border: 1px solid #d8e3df;
+
+            border-radius: 25px;
+
+            font-size: 14px;
+
+            outline: none;
+        }
+
+        .chat-input:focus {
+            border-color: #3d8172;
+
+            box-shadow:
+                0 0 0 3px rgba(61, 129, 114, 0.1);
+        }
+
+        .send-button {
+            width: 45px;
+            height: 45px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: #3d8172;
+
+            color: white;
+
+            cursor: pointer;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 17px;
+
+            transition: 0.2s;
+        }
+
+        .send-button:hover {
+            background: #316b5e;
+
+            transform: scale(1.04);
+        }
+
+
+        /* ================= DISCLAIMER ================= */
+
+        .companion-disclaimer {
+            text-align: center;
+
+            color: #8a9692;
+
+            font-size: 11px;
+
+            margin-top: 12px;
+        }
+
+
+        /* ================= TYPING ================= */
+
+        .typing {
+            display: none;
+
+            align-items: center;
+
+            gap: 4px;
+
+            padding: 13px 17px;
+
+            width: fit-content;
+
+            background: #eaf6f2;
+
+            border-radius: 17px;
+
+            border-bottom-left-radius: 5px;
+        }
+
+        .typing span {
+            width: 6px;
+            height: 6px;
+
+            background: #7a918a;
+
+            border-radius: 50%;
+
+            animation: typingAnimation 1.2s infinite;
+        }
+
+        .typing span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typingAnimation {
+
+            0%,
+            60%,
+            100% {
+                transform: translateY(0);
+            }
+
+            30% {
+                transform: translateY(-4px);
+            }
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 700px) {
+
+            .companion-page {
+                padding: 30px 5%;
+            }
+
+            .chat-container {
+                height: 600px;
+            }
+
+            .message-bubble {
+                max-width: 85%;
+            }
+
+        }
+
+        @media (max-width: 500px) {
+
+            .companion-heading h1 {
+                font-size: 28px;
+            }
+
+            .chat-header {
+                padding: 15px;
+            }
+
+            .chat-messages {
+                padding: 18px;
+            }
+
+            .chat-input-area {
+                padding: 12px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <a href="dashboard.html" class="logo">
+            MindSpace
+        </a>
+
+        <nav class="nav-links">
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="mood-tracker.html">
+                Mood Tracker
+            </a>
+
+            <a href="ai-companion.html">
+                AI Companion
+            </a>
+
+            <a href="wellness.html">
+                Wellness
+            </a>
+
+            <a href="insights.html">
+                Insights
+            </a>
+
+            <a href="settings.html">
+                Settings
+            </a>
+
+            <a href="login.html" class="login-btn">
+                Logout
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="companion-page">
+
+
+        <!-- Heading -->
+
+        <section class="companion-heading">
+
+            <h1>
+                AI Companion
+            </h1>
+
+            <p>
+                A supportive space where you can talk, reflect,
+                and express what's on your mind.
+            </p>
+
+        </section>
+
+
+        <!-- ================= CHAT ================= -->
+
+        <section class="chat-container">
+
+
+            <!-- Chat Header -->
+
+            <div class="chat-header">
+
+                <div class="companion-icon">
+                    💬
+                </div>
+
+                <div class="companion-info">
+
+                    <h2>
+                        MindSpace Companion
+                    </h2>
+
+                    <div class="companion-status">
+
+                        <span class="status-dot"></span>
+
+                        Available
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= MESSAGES ================= -->
+
+            <div
+                class="chat-messages"
+                id="chatMessages"
+            >
+
+                <!-- Initial AI message -->
+
+                <div class="message ai">
+
+                    <div class="message-bubble">
+
+                        Hi! I'm your MindSpace companion.
+                        I'm here to give you a supportive space
+                        to talk.
+
+                        <br><br>
+
+                        What's on your mind today?
+
+                    </div>
+
+                </div>
+
+
+                <!-- Typing indicator -->
+
+                <div
+                    class="message ai"
+                    id="typingMessage"
+                >
+
+                    <div class="typing" id="typingIndicator">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= INPUT ================= -->
+
+            <div class="chat-input-area">
+
+                <form
+                    class="chat-form"
+                    id="chatForm"
+                >
+
+                    <input
+                        type="text"
+                        id="chatInput"
+                        class="chat-input"
+                        placeholder="Type your message..."
+                        autocomplete="off"
+                    >
+
+                    <button
+                        type="submit"
+                        class="send-button"
+                        aria-label="Send message"
+                    >
+                        ➤
+                    </button>
+
+                </form>
+
+                <p class="companion-disclaimer">
+                    MindSpace Companion provides supportive
+                    conversations and is not a replacement for
+                    professional mental health care.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <p>
+            © 2026 MindSpace. All rights reserved.
+        </p>
+
+        <p>
+            Your space for better well-being.
+        </p>
+
+    </footer>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script>
+
+        const chatForm =
+            document.getElementById("chatForm");
+
+        const chatInput =
+            document.getElementById("chatInput");
+
+        const chatMessages =
+            document.getElementById("chatMessages");
+
+        const typingMessage =
+            document.getElementById("typingMessage");
+
+        const typingIndicator =
+            document.getElementById("typingIndicator");
+
+
+        chatForm.addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+
+            const message =
+                chatInput.value.trim();
+
+
+            if (!message) {
+                return;
+            }
+
+
+            /* Add user message */
+
+            addMessage(message, "user");
+
+
+            chatInput.value = "";
+
+
+            /* Show typing */
+
+            typingMessage.style.display = "flex";
+
+            typingIndicator.style.display = "flex";
+
+
+            chatMessages.scrollTop =
+                chatMessages.scrollHeight;
+
+
+            /*
+             * Temporary response.
+             *
+             * The actual AI API will be connected later.
+             */
+
+            setTimeout(function() {
+
+                typingMessage.style.display = "none";
+
+                typingIndicator.style.display = "none";
+
+
+                addMessage(
+                    "Thanks for sharing that with me. I'm here to listen. The AI response system will be connected to the backend soon.",
+                    "ai"
+                );
+
+            }, 1200);
+
+        });
+
+
+        function addMessage(text, sender) {
+
+            const message =
+                document.createElement("div");
+
+            message.classList.add(
+                "message",
+                sender
+            );
+
+
+            const bubble =
+                document.createElement("div");
+
+            bubble.classList.add(
+                "message-bubble"
+            );
+
+            bubble.textContent = text;
+
+
+            message.appendChild(bubble);
+
+            chatMessages.appendChild(message);
+
+
+            chatMessages.scrollTop =
+                chatMessages.scrollHeight;
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
