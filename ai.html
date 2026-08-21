@@ -341,6 +341,7 @@
 
     </style>
 
+    <link rel="stylesheet" href="css/theme.css">
 </head>
 
 
@@ -365,7 +366,7 @@
                 Mood Tracker
             </a>
 
-            <a href="ai-companion.html">
+            <a href="ai.html">
                 AI Companion
             </a>
 
@@ -597,12 +598,6 @@
                 chatMessages.scrollHeight;
 
 
-            /*
-             * Temporary response.
-             *
-             * The actual AI API will be connected later.
-             */
-
             setTimeout(function() {
 
                 typingMessage.style.display = "none";
@@ -610,10 +605,7 @@
                 typingIndicator.style.display = "none";
 
 
-                addMessage(
-                    "Thanks for sharing that with me. I'm here to listen. The AI response system will be connected to the backend soon.",
-                    "ai"
-                );
+                addMessage(generateResponse(message), "ai");
 
             }, 1200);
 
@@ -649,6 +641,37 @@
             chatMessages.scrollTop =
                 chatMessages.scrollHeight;
 
+        }
+
+        function generateResponse(message) {
+            const text = message.toLowerCase();
+            const safetyConcern = /suicid|kill myself|end my life|self[- ]?harm|hurt myself|want to die|not safe/.test(text);
+
+            if (safetyConcern) {
+                return "I'm really sorry you're carrying this right now. Your immediate safety matters. Please contact local emergency services or a crisis hotline in your country, and tell someone you trust that you need support now. If you may act on these thoughts, move away from anything you could use to hurt yourself and stay with another person. I can keep listening while you reach out, but I cannot provide emergency care.";
+            }
+
+            if (/anxious|anxiety|panic|overwhelm|stress|worried/.test(text)) {
+                return "That sounds overwhelming. Try a gentle reset: place both feet on the floor, breathe in for 4 seconds and out for 6 seconds five times, then name three things you can see. A 3-minute Breathing Exercise in Wellness may help too. What feels most urgent right now?";
+            }
+
+            if (/sad|lonely|low|down|upset|cry|unhappy/.test(text)) {
+                return "I'm glad you shared this instead of holding it alone. You might try a short walk, a comforting message to someone you trust, or writing down what you need today. The Mindfulness activity can offer a quiet place to pause. Would you like to talk about what brought this feeling up?";
+            }
+
+            if (/sleep|tired|exhausted|rest/.test(text)) {
+                return "Rest sounds important today. If you can, lower the lights, put your phone aside for a few minutes, and take slow breaths. A short Relaxation activity may help your body settle. What has been making rest difficult?";
+            }
+
+            if (/breathe|breathing|calm|relax/.test(text)) {
+                return "Let's make this simple: inhale gently for 4 counts, exhale for 6, and repeat for one minute. You can also open Wellness and start the Breathing Exercise or Relaxation activity.";
+            }
+
+            if (/activity|exercise|what should i do|recommend|suggest/.test(text)) {
+                return "For a quick reset, try the 3-minute Breathing Exercise. If you have five minutes, Mindfulness or Relaxation are good options. Choose the one that feels manageable rather than forcing yourself to do everything.";
+            }
+
+            return "Thank you for telling me. I'm here with you, and there is no need to solve everything at once. Would you like to reflect on the feeling, try a calming exercise, or choose a small wellness activity?";
         }
 
     </script>

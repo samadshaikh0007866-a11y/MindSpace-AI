@@ -1,0 +1,283 @@
+:root {
+    --primary: #c96572;
+    --primary-dark: #a94e5c;
+    --primary-light: #f4d4d0;
+    --background: #f8b071;
+    --background-light: #fde8e2;
+    --white: #fffaf7;
+    --text-dark: #171516;
+    --text-medium: #403738;
+    --text-light: #7c6f6d;
+    --border: #ecd3cd;
+    --footer: #252021;
+    --shadow: 0 18px 45px rgba(124, 67, 54, 0.12);
+}
+
+body {
+    background: var(--background);
+    color: var(--text-dark);
+    font-family: "Trebuchet MS", Arial, sans-serif;
+}
+
+.navbar {
+    width: min(1120px, 88%);
+    height: 78px;
+    margin: 42px auto 0;
+    padding: 0 42px;
+    background: var(--background-light);
+    border: 1px solid rgba(255, 250, 247, 0.7);
+    box-shadow: 0 10px 28px rgba(117, 67, 49, 0.07);
+    position: relative;
+}
+
+.logo {
+    color: #c96572;
+    font-family: Georgia, serif;
+    font-size: 28px;
+    letter-spacing: 0;
+}
+
+.logo img {
+    object-fit: contain;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.nav-links {
+    gap: 24px;
+}
+
+.nav-links a,
+.nav-right a {
+    color: var(--text-dark);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+}
+
+.nav-links a:hover,
+.nav-right a:hover {
+    color: #4f91a7;
+}
+
+.login-btn,
+.signup-btn {
+    border-radius: 0;
+}
+
+.login-btn {
+    padding: 8px 16px;
+    border-color: #c96572;
+    color: #c96572 !important;
+}
+
+.signup-btn,
+.primary-btn {
+    background: #171516;
+}
+
+.signup-btn:hover,
+.primary-btn:hover {
+    background: #c96572;
+}
+
+.primary-btn,
+.secondary-btn {
+    border-radius: 0;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 12px;
+}
+
+.secondary-btn {
+    border-color: #4f91a7;
+    color: #35768c;
+}
+
+.hero {
+    width: min(1120px, 88%);
+    min-height: 560px;
+    margin: 0 auto 42px;
+    padding: 76px 60px;
+    background: var(--background-light);
+    border: 1px solid rgba(255, 250, 247, 0.7);
+}
+
+.hero h1,
+.section-title h2 {
+    color: #171516;
+    font-family: "Arial Black", Arial, sans-serif;
+    letter-spacing: 0;
+    text-transform: uppercase;
+}
+
+.hero h1 {
+    font-size: clamp(40px, 5vw, 62px);
+}
+
+.hero h1 span,
+.hero-tag {
+    color: #c96572;
+}
+
+.hero-tag {
+    background: #f7c3a0;
+    border-radius: 0;
+}
+
+.wellness-card,
+.feature-card,
+.step,
+.mood-checkin,
+.history-card,
+.ai-card,
+.insight-card,
+.settings-card,
+.activity-card {
+    background: var(--background-light);
+    border: 1px solid var(--border);
+    border-radius: 0;
+    box-shadow: var(--shadow);
+}
+
+.section {
+    width: min(1120px, 88%);
+    margin: 0 auto;
+    background: var(--background-light);
+}
+
+.mood-page {
+    width: min(1120px, 88%);
+    max-width: none;
+    padding: 58px 60px 80px;
+    background: var(--background-light);
+    margin: 0 auto 42px;
+}
+
+.page-heading h1,
+.mood-checkin h2,
+.history-header h2 {
+    font-family: "Arial Black", Arial, sans-serif;
+    color: #171516;
+    text-transform: uppercase;
+}
+
+.page-heading h1 {
+    font-size: 40px;
+}
+
+.page-heading p,
+.checkin-description,
+.history-header span,
+.history-info p,
+.history-date,
+.empty-history,
+.trend-column,
+.calendar-heading {
+    color: var(--text-light);
+}
+
+.mood-checkin,
+.history-card {
+    padding: 32px;
+}
+
+.mood-option {
+    border-color: var(--border);
+    background: #fffaf7;
+    border-radius: 0;
+}
+
+.mood-option:hover {
+    border-color: #4f91a7;
+    background: #dcecf0;
+}
+
+.mood-option.selected {
+    border-color: #c96572;
+    background: #f4d4d0;
+}
+
+.mood-name,
+.mood-control label,
+.mood-note label {
+    color: var(--text-dark);
+}
+
+.mood-note textarea,
+.mood-control select,
+.mood-control input,
+.history-tools input,
+.trend-button {
+    border-color: var(--border);
+    border-radius: 0;
+    background: #fffaf7;
+    color: var(--text-dark);
+}
+
+.mood-note textarea:focus {
+    border-color: #4f91a7;
+    box-shadow: 0 0 0 3px rgba(79, 145, 167, 0.14);
+}
+
+.save-mood,
+.trend-button.active,
+.calendar-day.has-entry {
+    background: #c96572;
+}
+
+.save-mood:hover {
+    background: #a94e5c;
+}
+
+.history-emoji,
+.success-message {
+    background: #dcecf0;
+}
+
+.success-message {
+    color: #35768c;
+}
+
+.calendar-day {
+    border-color: var(--border);
+    background: #fffaf7;
+    border-radius: 0;
+}
+
+.trend-bar {
+    background: #4f91a7;
+    border-radius: 0;
+}
+
+.entry-actions button {
+    border-color: var(--border);
+    border-radius: 0;
+    background: #fffaf7;
+    color: #35768c;
+}
+
+.footer {
+    background: #252021;
+}
+
+@media (max-width: 800px) {
+    .navbar {
+        width: 100%;
+        margin-top: 0;
+        padding: 0 5%;
+    }
+
+    .hero,
+    .mood-page,
+    .section {
+        width: 100%;
+    }
+
+    .hero,
+    .mood-page {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+}
