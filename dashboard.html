@@ -15,8 +15,8 @@
         }
 
         body {
-            background: #f7faf9;
-            color: #263a35;
+            background: #f8fbfe;
+            color: #012148;
         }
 
         /* ================= NAVBAR ================= */
@@ -28,7 +28,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 1px solid #edf1ef;
+            border-bottom: 1px solid #e1ecf7;
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -36,7 +36,7 @@
 
         .logo {
             text-decoration: none;
-            color: #3d8172;
+            color: #012148;
             font-size: 27px;
             font-weight: 700;
         }
@@ -54,14 +54,14 @@
         }
 
         .nav-right a:hover {
-            color: #3d8172;
+            color: #007bff;
         }
 
         .logout-btn {
             padding: 9px 18px;
-            border: 1px solid #3d8172;
+            border: 1px solid #012148;
             border-radius: 20px;
-            color: #3d8172 !important;
+            color: #012148 !important;
         }
 
         /* ================= MAIN ================= */
@@ -113,11 +113,18 @@
             width: 45px;
             height: 45px;
             border-radius: 13px;
-            background: #e4f3ef;
+            background: #e1ecf7;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 21px;
+            overflow: hidden;
+        }
+
+        .summary-icon img {
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
         }
 
         .summary-label {
@@ -157,7 +164,7 @@
         }
 
         .card-header a {
-            color: #3d8172;
+            color: #007bff;
             text-decoration: none;
             font-size: 13px;
         }
@@ -187,13 +194,13 @@
         }
 
         .mood:hover {
-            border-color: #3d8172;
-            background: #eef8f5;
+            border-color: #007bff;
+            background: #f0f7ff;
         }
 
         .mood.selected {
-            border-color: #3d8172;
-            background: #dff1eb;
+            border-color: #012148;
+            background: #e1ecf7;
         }
 
         .mood span {
@@ -225,7 +232,7 @@
             width: 45px;
             height: 45px;
             border-radius: 12px;
-            background: #e4f3ef;
+            background: #e1ecf7;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -248,7 +255,7 @@
 
         .activity-btn {
             border: none;
-            background: #3d8172;
+            background: #012148;
             color: white;
             padding: 7px 13px;
             border-radius: 15px;
@@ -260,7 +267,7 @@
 
         .ai-card {
             margin-top: 25px;
-            background: #eaf6f2;
+            background: #eef5fb;
             border: none;
         }
 
@@ -280,6 +287,13 @@
             justify-content: center;
             font-size: 28px;
             flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .ai-icon img {
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
         }
 
         .ai-content h2 {
@@ -296,7 +310,7 @@
         .ai-btn {
             display: inline-block;
             padding: 9px 17px;
-            background: #3d8172;
+            background: #012148;
             color: white;
             text-decoration: none;
             border-radius: 20px;
@@ -485,7 +499,7 @@
                     </div>
 
                     <div class="summary-icon">
-                        🌤️
+                        <img src="assets/brain.png" alt="Brain Icon">
                     </div>
 
                 </div>
@@ -621,9 +635,9 @@
 
                     <div class="ai-content">
 
-                        <div class="ai-icon">
-                            💬
-                        </div>
+                    <div class="ai-icon">
+                        <img src="assets/brain.png" alt="Brain Icon">
+                    </div>
 
                         <div>
 

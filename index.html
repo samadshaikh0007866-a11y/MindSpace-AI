@@ -19,8 +19,8 @@
         }
 
         body {
-            background: #f7faf9;
-            color: #263a35;
+            background: #f8fbfe;
+            color: #012148;
             line-height: 1.6;
         }
 
@@ -42,8 +42,11 @@
         .logo {
             font-size: 27px;
             font-weight: 700;
-            color: #3d8172;
+            color: #012148;
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .nav-links {
@@ -60,25 +63,25 @@
         }
 
         .nav-links a:hover {
-            color: #3d8172;
+            color: #007bff;
         }
 
         .login-btn {
             padding: 10px 22px;
-            border: 1px solid #3d8172;
+            border: 1px solid #012148;
             border-radius: 25px;
-            color: #3d8172 !important;
+            color: #012148 !important;
         }
 
         .signup-btn {
             padding: 11px 23px;
-            background: #3d8172;
+            background: linear-gradient(135deg, #012148, #007bff);
             color: white !important;
             border-radius: 25px;
         }
 
         .signup-btn:hover {
-            background: #316b5e;
+            opacity: 0.9;
         }
 
         /* ================= HERO ================= */
@@ -92,8 +95,8 @@
             gap: 50px;
             background: linear-gradient(
                 135deg,
-                #eef8f5,
-                #f8fbfa
+                #e8f1f8,
+                #f8fbfe
             );
         }
 
@@ -104,8 +107,8 @@
         .hero-tag {
             display: inline-block;
             padding: 7px 16px;
-            background: #dff1eb;
-            color: #357566;
+            background: #e1ecf7;
+            color: #012148;
             border-radius: 20px;
             font-size: 14px;
             margin-bottom: 22px;
@@ -115,16 +118,18 @@
             font-size: 58px;
             line-height: 1.15;
             margin-bottom: 22px;
-            color: #263a35;
+            color: #012148;
         }
 
         .hero h1 span {
-            color: #3d8172;
+            background: linear-gradient(135deg, #012148, #00c9a7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .hero p {
             font-size: 18px;
-            color: #65736f;
+            color: #4a5568;
             max-width: 580px;
             margin-bottom: 32px;
         }
@@ -137,7 +142,7 @@
         .primary-btn {
             display: inline-block;
             padding: 14px 28px;
-            background: #3d8172;
+            background: linear-gradient(135deg, #012148, #007bff);
             color: white;
             text-decoration: none;
             border-radius: 28px;
@@ -146,15 +151,15 @@
         }
 
         .primary-btn:hover {
-            background: #316b5e;
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(1, 33, 72, 0.2);
         }
 
         .secondary-btn {
             display: inline-block;
             padding: 14px 28px;
-            border: 1px solid #3d8172;
-            color: #3d8172;
+            border: 1px solid #012148;
+            color: #012148;
             text-decoration: none;
             border-radius: 28px;
             font-weight: 600;
@@ -183,11 +188,18 @@
             height: 150px;
             margin: 0 auto 25px;
             border-radius: 50%;
-            background: #dff1eb;
+            background: #e1ecf7;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 55px;
+            overflow: hidden;
+        }
+
+        .circle img {
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
         }
 
         .wellness-card h3 {
@@ -262,7 +274,7 @@
             height: 65px;
             margin: 0 auto 20px;
             border-radius: 18px;
-            background: #e4f3ef;
+            background: #e1ecf7;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -301,7 +313,7 @@
             height: 55px;
             margin: 0 auto 18px;
             border-radius: 50%;
-            background: #3d8172;
+            background: #012148;
             color: white;
             display: flex;
             justify-content: center;
@@ -324,7 +336,7 @@
         .cta {
             margin: 0 7%;
             padding: 65px 30px;
-            background: #3d8172;
+            background: linear-gradient(135deg, #012148, #007bff);
             border-radius: 30px;
             text-align: center;
             color: white;
@@ -344,7 +356,7 @@
             display: inline-block;
             padding: 13px 28px;
             background: white;
-            color: #3d8172;
+            color: #012148;
             border-radius: 25px;
             text-decoration: none;
             font-weight: 600;
@@ -520,7 +532,7 @@
                 <div class="wellness-card">
 
                     <div class="circle">
-                        ☁️
+                        <img src="assets/brain.png" alt="Brain Icon">
                     </div>
 
                     <h3>

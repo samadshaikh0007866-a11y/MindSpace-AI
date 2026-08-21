@@ -7,17 +7,17 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
-        .bg-mindspace { background-color: #2d7a6e; }
-        .text-mindspace { color: #2d7a6e; }
-        .border-mindspace { border-color: #2d7a6e; }
+        body { font-family: 'Inter', sans-serif; background-color: #f8fbfe; }
+        .bg-mindspace { background: linear-gradient(135deg, #012148, #007bff); }
+        .text-mindspace { color: #012148; }
+        .border-mindspace { border-color: #012148; }
         .chat-container { height: calc(100vh - 250px); min-height: 400px; }
         .message-bubble { max-width: 80%; }
-        .ai-message { background-color: #eef5f4; border-left: 4px solid #2d7a6e; }
-        .user-message { background-color: #2d7a6e; color: white; }
-        .suggestion-card:hover { border-color: #2d7a6e; background-color: #f0fdfa; }
+        .ai-message { background-color: #f0f7ff; border-left: 4px solid #012148; }
+        .user-message { background: linear-gradient(135deg, #012148, #007bff); color: white; }
+        .suggestion-card:hover { border-color: #012148; background-color: #e1ecf7; }
         .typing-indicator span {
-            width: 8px; height: 8px; background-color: #2d7a6e;
+            width: 8px; height: 8px; background-color: #012148;
             border-radius: 50%; display: inline-block;
             animation: bounce 1.4s infinite ease-in-out both;
         }
@@ -37,7 +37,7 @@
             <div class="flex justify-between h-16 items-center">
                 <div class="flex items-center">
                     <a href="dashboard.html" class="text-2xl font-bold text-mindspace flex items-center">
-                        <span class="mr-2 text-3xl">🌿</span> MindSpace
+                        <img src="assets/brain.png" class="w-8 h-8 mr-2" alt="Brain Logo"> MindSpace
                     </a>
                 </div>
                 <div class="hidden md:flex items-center space-x-8">
@@ -63,8 +63,8 @@
             <div class="flex-grow flex flex-col bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                 <div class="p-4 border-b border-slate-200 bg-slate-50 flex justify-between items-center">
                     <div class="flex items-center">
-                        <div class="w-10 h-10 rounded-full bg-mindspace flex items-center justify-center text-white text-xl mr-3">
-                            💬
+                        <div class="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center mr-3 overflow-hidden">
+                            <img src="assets/brain.png" class="w-7 h-7" alt="AI Icon">
                         </div>
                         <div>
                             <h2 class="font-semibold">Wellness Companion</h2>
@@ -118,11 +118,11 @@
                     </div>
                 </div>
 
-                <div class="bg-emerald-50 p-6 rounded-2xl border border-emerald-100">
-                    <h4 class="font-bold text-emerald-800 mb-2 flex items-center">
+                <div class="bg-blue-50 p-6 rounded-2xl border border-blue-100">
+                    <h4 class="font-bold text-blue-800 mb-2 flex items-center">
                         <span class="mr-2">🛡️</span> Safe Space
                     </h4>
-                    <p class="text-xs text-emerald-700 leading-relaxed">
+                    <p class="text-xs text-blue-700 leading-relaxed">
                         MindSpace is a supportive tool, not a replacement for professional therapy. If you are in crisis, please contact emergency services or a crisis hotline immediately.
                     </p>
                 </div>
