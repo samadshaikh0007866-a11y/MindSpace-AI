@@ -1,55 +1,63 @@
 :root {
-    --primary: #c96572;
-    --primary-dark: #a94e5c;
-    --primary-light: #f4d4d0;
-    --background: #f8b071;
-    --background-light: #fde8e2;
-    --white: #fffaf7;
-    --text-dark: #171516;
-    --text-medium: #403738;
-    --text-light: #7c6f6d;
-    --border: #ecd3cd;
-    --footer: #252021;
-    --shadow: 0 18px 45px rgba(124, 67, 54, 0.12);
+    --primary: #0e78b7;
+    --primary-dark: #0a5d9c;
+    --primary-light: #7fe0ff;
+    --secondary: #39d8be;
+    --secondary-dark: #17b39d;
+    --background: #020a10;
+    --background-light: #061b27;
+    --panel: rgba(8, 21, 33, 0.9);
+    --white: #effdff;
+    --text-dark: #000000;
+    --text-medium: #111111;
+    --text-light: #1d1d1d;
+    --border: rgba(125, 219, 255, 0.35);
+    --footer: #020a10;
+    --shadow: 0 0 0 1px rgba(110, 213, 255, 0.2), 0 22px 42px rgba(6, 27, 39, 0.45);
 }
 
 body {
-    background: var(--background);
+    background: radial-gradient(circle at top, #dfeef5 0%, #f3f7fb 35%, #edf3f7 100%);
     color: var(--text-dark);
     font-family: "Trebuchet MS", Arial, sans-serif;
 }
 
 .navbar {
-    width: min(1120px, 88%);
+    width: min(1180px, 90%);
     height: 78px;
     margin: 42px auto 0;
     padding: 0 42px;
-    background: var(--background-light);
-    border: 1px solid rgba(255, 250, 247, 0.7);
-    box-shadow: 0 10px 28px rgba(117, 67, 49, 0.07);
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(16, 16, 16, 0.08);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
     position: relative;
+    backdrop-filter: blur(6px);
 }
 
 .logo {
-    color: #c96572;
-    font-family: Georgia, serif;
+    color: #000000;
+    font-family: "Arial Black", Arial, sans-serif;
     font-size: 28px;
     letter-spacing: 0;
+    text-transform: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .logo img {
     object-fit: contain;
     vertical-align: middle;
-    margin-right: 8px;
+    filter: drop-shadow(0 0 10px rgba(75, 210, 255, 0.45));
 }
 
 .nav-links {
-    gap: 24px;
+    gap: 26px;
 }
 
 .nav-links a,
 .nav-right a {
-    color: var(--text-dark);
+    color: #000000;
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 1.2px;
@@ -58,72 +66,99 @@ body {
 
 .nav-links a:hover,
 .nav-right a:hover {
-    color: #4f91a7;
+    color: var(--primary-light);
 }
 
 .login-btn,
 .signup-btn {
-    border-radius: 0;
+    border-radius: 999px;
 }
 
 .login-btn {
-    padding: 8px 16px;
-    border-color: #c96572;
-    color: #c96572 !important;
+    padding: 10px 18px;
+    border-color: rgba(125, 219, 255, 0.5);
+    color: var(--white) !important;
+    background: rgba(13, 37, 52, 0.8);
 }
 
 .signup-btn,
 .primary-btn {
-    background: #171516;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: #04141b;
+    font-weight: 700;
 }
 
 .signup-btn:hover,
 .primary-btn:hover {
-    background: #c96572;
+    filter: brightness(1.08);
 }
 
 .primary-btn,
 .secondary-btn {
-    border-radius: 0;
+    border-radius: 999px;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
-    font-size: 12px;
+    letter-spacing: 1.4px;
+    font-size: 11px;
 }
 
 .secondary-btn {
-    border-color: #4f91a7;
-    color: #35768c;
+    border: 1px solid rgba(125, 219, 255, 0.42);
+    background: rgba(7, 28, 38, 0.9);
+    color: var(--white);
 }
 
 .hero {
-    width: min(1120px, 88%);
+    width: min(1180px, 90%);
     min-height: 560px;
     margin: 0 auto 42px;
     padding: 76px 60px;
-    background: var(--background-light);
-    border: 1px solid rgba(255, 250, 247, 0.7);
+    background: linear-gradient(135deg, rgba(255,255,255,0.82), rgba(239,248,255,0.9));
+    border: 1px solid rgba(16, 16, 16, 0.08);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
 }
 
 .hero h1,
 .section-title h2 {
-    color: #171516;
+    color: #000000;
     font-family: "Arial Black", Arial, sans-serif;
     letter-spacing: 0;
-    text-transform: uppercase;
+    text-transform: none;
 }
 
 .hero h1 {
-    font-size: clamp(40px, 5vw, 62px);
+    font-size: clamp(42px, 5vw, 76px);
+    line-height: 0.96;
+    margin-bottom: 20px;
 }
 
 .hero h1 span,
 .hero-tag {
-    color: #c96572;
+    color: var(--primary-light);
 }
 
 .hero-tag {
-    background: #f7c3a0;
-    border-radius: 0;
+    background: rgba(14, 120, 183, 0.12);
+    border: 1px solid rgba(125, 219, 255, 0.2);
+    border-radius: 999px;
+    padding: 8px 14px;
+    margin-bottom: 18px;
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 1.1px;
+    font-size: 11px;
+}
+
+.hero p {
+    color: #1c1c1c;
+    font-size: 18px;
+    max-width: 560px;
+}
+
+.hero-visual {
+    width: 45%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .wellness-card,
@@ -135,23 +170,25 @@ body {
 .insight-card,
 .settings-card,
 .activity-card {
-    background: var(--background-light);
-    border: 1px solid var(--border);
-    border-radius: 0;
+    background: rgba(7, 23, 31, 0.78);
+    border: 1px solid rgba(125, 219, 255, 0.2);
+    border-radius: 28px;
     box-shadow: var(--shadow);
 }
 
 .section {
-    width: min(1120px, 88%);
+    width: min(1180px, 90%);
     margin: 0 auto;
-    background: var(--background-light);
+    background: transparent;
 }
 
 .mood-page {
-    width: min(1120px, 88%);
+    width: min(1180px, 90%);
     max-width: none;
     padding: 58px 60px 80px;
-    background: var(--background-light);
+    background: rgba(255,255,255,0.76);
+    border: 1px solid rgba(16, 16, 16, 0.08);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
     margin: 0 auto 42px;
 }
 
@@ -159,8 +196,8 @@ body {
 .mood-checkin h2,
 .history-header h2 {
     font-family: "Arial Black", Arial, sans-serif;
-    color: #171516;
-    text-transform: uppercase;
+    color: var(--text-dark);
+    text-transform: none;
 }
 
 .page-heading h1 {
@@ -184,19 +221,19 @@ body {
 }
 
 .mood-option {
-    border-color: var(--border);
-    background: #fffaf7;
-    border-radius: 0;
+    border-color: rgba(125, 219, 255, 0.25);
+    background: rgba(9, 27, 37, 0.9);
+    border-radius: 18px;
 }
 
 .mood-option:hover {
-    border-color: #4f91a7;
-    background: #dcecf0;
+    border-color: rgba(125, 219, 255, 0.6);
+    background: rgba(17, 52, 65, 0.9);
 }
 
 .mood-option.selected {
-    border-color: #c96572;
-    background: #f4d4d0;
+    border-color: var(--secondary);
+    background: rgba(32, 100, 108, 0.72);
 }
 
 .mood-name,
@@ -210,56 +247,73 @@ body {
 .mood-control input,
 .history-tools input,
 .trend-button {
-    border-color: var(--border);
-    border-radius: 0;
-    background: #fffaf7;
+    border-color: rgba(125, 219, 255, 0.25);
+    border-radius: 12px;
+    background: rgba(8, 31, 41, 0.9);
     color: var(--text-dark);
 }
 
 .mood-note textarea:focus {
-    border-color: #4f91a7;
-    box-shadow: 0 0 0 3px rgba(79, 145, 167, 0.14);
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 3px rgba(57, 216, 190, 0.14);
 }
 
 .save-mood,
 .trend-button.active,
 .calendar-day.has-entry {
-    background: #c96572;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #04141b;
 }
 
 .save-mood:hover {
-    background: #a94e5c;
+    filter: brightness(1.06);
 }
 
 .history-emoji,
 .success-message {
-    background: #dcecf0;
+    background: rgba(19, 66, 77, 0.9);
 }
 
 .success-message {
-    color: #35768c;
+    color: var(--primary-light);
 }
 
 .calendar-day {
-    border-color: var(--border);
-    background: #fffaf7;
-    border-radius: 0;
+    border-color: rgba(125, 219, 255, 0.2);
+    background: rgba(8, 29, 38, 0.88);
+    border-radius: 10px;
 }
 
 .trend-bar {
-    background: #4f91a7;
-    border-radius: 0;
+    background: linear-gradient(180deg, var(--secondary), var(--primary));
+    border-radius: 8px 8px 3px 3px;
 }
 
 .entry-actions button {
-    border-color: var(--border);
-    border-radius: 0;
-    background: #fffaf7;
-    color: #35768c;
+    border-color: rgba(125, 219, 255, 0.25);
+    border-radius: 10px;
+    background: rgba(8, 32, 41, 0.9);
+    color: var(--primary-light);
 }
 
 .footer {
-    background: #252021;
+    background: #020a10;
+}
+
+.brain-visual {
+    position: relative;
+    width: min(430px, 92%);
+    height: 370px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.brain-visual svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    filter: drop-shadow(0 0 18px rgba(76, 199, 255, 0.18));
 }
 
 @media (max-width: 800px) {
@@ -279,5 +333,10 @@ body {
     .mood-page {
         padding-left: 5%;
         padding-right: 5%;
+    }
+
+    .hero-visual {
+        width: 100%;
+        margin-top: 24px;
     }
 }
