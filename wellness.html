@@ -15,9 +15,13 @@
         /* ================= WELLNESS PAGE ================= */
 
         .wellness-page {
-            max-width: 1200px;
-            margin: auto;
-            padding: 45px 6%;
+            width: min(1180px, 90%);
+            max-width: none;
+            margin: 0 auto 42px;
+            padding: 58px 60px 80px;
+            background: rgba(8, 20, 36, 0.94);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
         }
 
         .wellness-heading {
@@ -25,14 +29,41 @@
         }
 
         .wellness-heading h1 {
-            font-size: 34px;
+            color: var(--white);
+            font-family: "Arial Black", Arial, sans-serif;
+            font-size: 40px;
             margin-bottom: 8px;
         }
 
         .wellness-heading p {
-            color: #71807b;
+            color: var(--text-light);
             font-size: 15px;
             max-width: 650px;
+        }
+
+        .activity-intro {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 24px;
+            margin-bottom: 22px;
+        }
+
+        .activity-intro h2 {
+            color: var(--white);
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        .activity-intro p {
+            color: var(--text-light);
+            font-size: 13px;
+        }
+
+        .activity-count {
+            color: var(--primary-light);
+            font-size: 12px;
+            white-space: nowrap;
         }
 
 
@@ -48,11 +79,10 @@
         /* ================= ACTIVITY CARD ================= */
 
         .wellness-card-item {
-            background: white;
-
-            border: 1px solid #edf1ef;
-
-            border-radius: 22px;
+            scroll-margin-top: 24px;
+            background: linear-gradient(145deg, rgba(14, 31, 54, 0.96), rgba(8, 19, 34, 0.96));
+            border: 1px solid var(--border);
+            border-radius: 18px;
 
             padding: 30px;
 
@@ -62,12 +92,28 @@
             flex-direction: column;
         }
 
+        .wellness-card-item:nth-child(3n + 2) .activity-large-icon {
+            background: rgba(78, 161, 255, 0.14);
+        }
+
+        .wellness-card-item:nth-child(3n) .activity-large-icon {
+            background: rgba(57, 216, 190, 0.14);
+        }
+
         .wellness-card-item:hover {
             transform: translateY(-5px);
 
             box-shadow:
-                0 12px 30px rgba(44, 92, 81, 0.08);
+                0 0 0 1px rgba(78, 161, 255, 0.28),
+                0 18px 36px rgba(0, 0, 0, 0.28);
         }
+
+            .wellness-card-item:target {
+                border-color: var(--secondary);
+                box-shadow:
+                0 0 0 1px rgba(57, 216, 190, 0.42),
+                0 0 28px rgba(57, 216, 190, 0.16);
+            }
 
 
         /* ================= ICON ================= */
@@ -78,7 +124,7 @@
 
             border-radius: 18px;
 
-            background: #e4f3ef;
+            background: rgba(57, 216, 190, 0.14);
 
             display: flex;
             align-items: center;
@@ -91,17 +137,38 @@
 
 
         .wellness-card-item h2 {
+            color: var(--white);
             font-size: 21px;
 
             margin-bottom: 8px;
         }
 
         .wellness-card-item > p {
-            color: #71807b;
+            color: var(--text-light);
 
             font-size: 14px;
 
             margin-bottom: 20px;
+        }
+
+        .activity-tip {
+            padding: 12px 14px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(57, 216, 190, 0.18);
+            border-left: 3px solid var(--secondary);
+            background: rgba(8, 32, 41, 0.72);
+            color: var(--text-medium);
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .activity-tip strong {
+            display: block;
+            color: var(--secondary);
+            font-size: 11px;
+            margin-bottom: 2px;
+            text-transform: uppercase;
+            letter-spacing: .5px;
         }
 
 
@@ -115,14 +182,18 @@
             margin-bottom: 25px;
         }
 
+        .activity-details span:first-child {
+            color: var(--primary-light);
+            font-weight: 600;
+        }
+
         .detail {
             padding: 6px 10px;
 
             border-radius: 15px;
 
-            background: #f3f8f6;
-
-            color: #64746f;
+            background: rgba(78, 161, 255, 0.1);
+            color: var(--text-medium);
 
             font-size: 11px;
         }
@@ -137,11 +208,9 @@
 
             border: none;
 
-            border-radius: 25px;
-
-            background: #3d8172;
-
-            color: white;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #04141b;
 
             font-size: 14px;
 
@@ -155,8 +224,7 @@
         }
 
         .start-activity:hover {
-            background: #316b5e;
-
+            filter: brightness(1.08);
             transform: translateY(-1px);
         }
 
@@ -170,7 +238,7 @@
 
             inset: 0;
 
-            background: rgba(30, 50, 45, 0.45);
+            background: rgba(2, 10, 16, 0.78);
 
             align-items: center;
 
@@ -185,9 +253,10 @@
             width: 100%;
             max-width: 500px;
 
-            background: white;
-
-            border-radius: 25px;
+            background: linear-gradient(145deg, rgba(14, 31, 54, 0.98), rgba(7, 17, 31, 0.98));
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            box-shadow: var(--shadow);
 
             padding: 35px;
 
@@ -207,15 +276,21 @@
 
             border: none;
 
-            background: #f3f7f5;
+            background: rgba(78, 161, 255, 0.12);
 
             border-radius: 50%;
 
             cursor: pointer;
 
-            color: #52635e;
+            color: var(--primary-light);
 
             font-size: 17px;
+        }
+
+        .close-modal:hover,
+        .close-modal:focus-visible {
+            background: rgba(57, 216, 190, 0.18);
+            color: var(--secondary);
         }
 
         .modal-icon {
@@ -226,7 +301,7 @@
 
             border-radius: 22px;
 
-            background: #e4f3ef;
+            background: rgba(57, 216, 190, 0.14);
 
             display: flex;
             align-items: center;
@@ -236,13 +311,14 @@
         }
 
         .modal-content h2 {
+            color: var(--white);
             font-size: 25px;
 
             margin-bottom: 8px;
         }
 
         .modal-content p {
-            color: #71807b;
+            color: var(--text-light);
 
             font-size: 14px;
 
@@ -257,7 +333,7 @@
 
             font-weight: 700;
 
-            color: #3d8172;
+            color: var(--secondary);
 
             margin-bottom: 20px;
         }
@@ -275,11 +351,9 @@
 
             border: none;
 
-            border-radius: 22px;
-
-            background: #3d8172;
-
-            color: white;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #04141b;
 
             cursor: pointer;
 
@@ -287,9 +361,9 @@
         }
 
         .timer-btn.secondary {
-            background: #edf5f2;
-
-            color: #3d8172;
+            background: rgba(7, 28, 38, 0.9);
+            border: 1px solid rgba(125, 219, 255, 0.42);
+            color: var(--white);
         }
 
 
@@ -305,16 +379,23 @@
 
         @media (max-width: 650px) {
 
+            .activity-intro {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 3px;
+            }
+
             .activity-grid {
                 grid-template-columns: 1fr;
             }
 
             .wellness-page {
-                padding: 30px 5%;
+                width: 100%;
+                padding: 40px 5% 60px;
             }
 
             .wellness-heading h1 {
-                font-size: 28px;
+                font-size: 32px;
             }
 
         }
@@ -395,12 +476,24 @@
 
         <!-- ================= ACTIVITIES ================= -->
 
-        <section class="activity-grid">
+        <section class="activity-intro" aria-labelledby="activity-list-title">
+
+            <div>
+                <h2 id="activity-list-title">Choose a gentle reset</h2>
+                <p>Start small. You can pause or reset any activity whenever you need.</p>
+            </div>
+
+            <span class="activity-count">6 guided activities</span>
+
+        </section>
+
+
+        <section class="activity-grid" aria-label="Wellness activities">
 
 
             <!-- Breathing -->
 
-            <article class="wellness-card-item">
+            <article class="wellness-card-item" id="breathing-exercise">
 
                 <div class="activity-large-icon">
                     🌬️
@@ -414,6 +507,11 @@
                     Practice slow, controlled breathing to help
                     create a moment of calm and relaxation.
                 </p>
+
+                <div class="activity-tip">
+                    <strong>Try this</strong>
+                    Inhale for four counts, then exhale for six.
+                </div>
 
                 <div class="activity-details">
 
@@ -429,13 +527,15 @@
 
                 <button
                     class="start-activity"
+                    type="button"
                     onclick="openActivity(
                         'Breathing Exercise',
                         '🌬️',
-                        180
+                        180,
+                        'Breathe slowly and let your attention settle on each inhale and exhale.'
                     )"
                 >
-                    Start Activity
+                    Begin practice
                 </button>
 
             </article>
@@ -443,7 +543,7 @@
 
             <!-- Mindfulness -->
 
-            <article class="wellness-card-item">
+            <article class="wellness-card-item" id="mindfulness">
 
                 <div class="activity-large-icon">
                     🧘
@@ -458,6 +558,11 @@
                     on the present moment.
                 </p>
 
+                <div class="activity-tip">
+                    <strong>Try this</strong>
+                    Notice three things you can see, hear, and feel.
+                </div>
+
                 <div class="activity-details">
 
                     <span class="detail">
@@ -472,13 +577,15 @@
 
                 <button
                     class="start-activity"
+                    type="button"
                     onclick="openActivity(
                         'Mindfulness',
                         '🧘',
-                        300
+                        300,
+                        'Notice what you can see, hear, and feel without needing to change anything.'
                     )"
                 >
-                    Start Activity
+                    Begin practice
                 </button>
 
             </article>
@@ -486,7 +593,7 @@
 
             <!-- Relaxation -->
 
-            <article class="wellness-card-item">
+            <article class="wellness-card-item" id="relaxation">
 
                 <div class="activity-large-icon">
                     🌿
@@ -501,6 +608,11 @@
                     and relax.
                 </p>
 
+                <div class="activity-tip">
+                    <strong>Try this</strong>
+                    Let your shoulders drop as you take five easy breaths.
+                </div>
+
                 <div class="activity-details">
 
                     <span class="detail">
@@ -515,13 +627,96 @@
 
                 <button
                     class="start-activity"
+                    type="button"
                     onclick="openActivity(
                         'Relaxation',
                         '🌿',
-                        300
+                        300,
+                        'Release tension one breath at a time and make room for a quieter moment.'
                     )"
                 >
-                    Start Activity
+                    Begin practice
+                </button>
+
+            </article>
+
+
+            <!-- Stretch -->
+
+            <article class="wellness-card-item">
+
+                <div class="activity-large-icon">🤸</div>
+
+                <h2>Gentle Stretch</h2>
+
+                <p>Loosen your shoulders, neck, and back with a short mindful movement break.</p>
+
+                <div class="activity-tip">
+                    <strong>Try this</strong>
+                    Move gently and stop before any stretch feels painful.
+                </div>
+
+                <div class="activity-details">
+                    <span class="detail">⏱ 4 minutes</span>
+                    <span class="detail">Easy</span>
+                </div>
+
+                <button class="start-activity" type="button" onclick="openActivity('Gentle Stretch', '🤸', 240, 'Move slowly and stay within a comfortable range as you reconnect with your body.')">
+                    Begin practice
+                </button>
+
+            </article>
+
+
+            <!-- Gratitude -->
+
+            <article class="wellness-card-item">
+
+                <div class="activity-large-icon">🌻</div>
+
+                <h2>Gratitude Pause</h2>
+
+                <p>Reflect on one person, place, or small moment that brought you comfort today.</p>
+
+                <div class="activity-tip">
+                    <strong>Try this</strong>
+                    Name one small detail from today that you appreciate.
+                </div>
+
+                <div class="activity-details">
+                    <span class="detail">⏱ 3 minutes</span>
+                    <span class="detail">Reflective</span>
+                </div>
+
+                <button class="start-activity" type="button" onclick="openActivity('Gratitude Pause', '🌻', 180, 'Give one meaningful moment your full attention and notice how it feels to appreciate it.')">
+                    Begin practice
+                </button>
+
+            </article>
+
+
+            <!-- Body scan -->
+
+            <article class="wellness-card-item">
+
+                <div class="activity-large-icon">✨</div>
+
+                <h2>Body Scan</h2>
+
+                <p>Check in with your body from head to toe and soften any places holding tension.</p>
+
+                <div class="activity-tip">
+                    <strong>Try this</strong>
+                    Notice each area without judging or trying to change it.
+                </div>
+
+                <div class="activity-details">
+                    <span class="detail">⏱ 6 minutes</span>
+                    <span class="detail">Beginner</span>
+                </div>
+
+                <button class="start-activity" type="button" onclick="openActivity('Body Scan', '✨', 360, 'Move your attention gently through your body and observe each area with patience.')">
+                    Begin practice
                 </button>
 
             </article>
@@ -543,6 +738,8 @@
 
             <button
                 class="close-modal"
+                type="button"
+                aria-label="Close activity"
                 onclick="closeActivity()"
             >
                 ×
@@ -570,6 +767,8 @@
             <div
                 class="timer"
                 id="timer"
+                role="timer"
+                aria-live="polite"
             >
                 03:00
             </div>
@@ -579,6 +778,7 @@
 
                 <button
                     class="timer-btn"
+                    type="button"
                     id="startTimerBtn"
                     onclick="startTimer()"
                 >
@@ -587,6 +787,7 @@
 
                 <button
                     class="timer-btn secondary"
+                    type="button"
                     onclick="resetTimer()"
                 >
                     Reset
@@ -643,11 +844,13 @@
 
         /* ================= OPEN ACTIVITY ================= */
 
-        function openActivity(title, icon, seconds) {
+        function openActivity(title, icon, seconds, description) {
 
             modalTitle.textContent = title;
 
             modalIcon.textContent = icon;
+
+            document.getElementById("modalDescription").textContent = description;
 
             originalSeconds = seconds;
 
@@ -658,6 +861,8 @@
             startTimerBtn.textContent = "Start";
 
             activityModal.style.display = "flex";
+
+            document.querySelector(".close-modal").focus();
 
         }
 

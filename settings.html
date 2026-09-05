@@ -15,9 +15,10 @@
         /* ================= SETTINGS PAGE ================= */
 
         .settings-page {
-            max-width: 1000px;
-            margin: auto;
-            padding: 45px 6%;
+            width: min(1000px, 90%);
+            max-width: none;
+            margin: 0 auto 42px;
+            padding: 58px 0 80px;
         }
 
         .settings-heading {
@@ -38,7 +39,7 @@
         /* ================= SETTINGS CARD ================= */
 
         .settings-card {
-            background: white;
+            background: linear-gradient(145deg, rgba(14, 31, 54, 0.97), rgba(8, 19, 34, 0.97));
 
             border: 1px solid #edf1ef;
 
@@ -106,11 +107,11 @@
         /* ================= ACCOUNT INFO ================= */
 
         .account-value {
-            color: #52635e;
+            color: var(--text-medium);
 
             font-size: 14px;
 
-            background: #f5f9f7;
+            background: rgba(78, 161, 255, 0.12);
 
             padding: 9px 13px;
 
@@ -143,7 +144,7 @@
 
             inset: 0;
 
-            background: #dce5e1;
+            background: rgba(125, 183, 255, 0.24);
 
             border-radius: 30px;
 
@@ -161,7 +162,7 @@
             left: 3px;
             top: 3px;
 
-            background: white;
+            background: var(--white);
 
             border-radius: 50%;
 
@@ -171,7 +172,7 @@
         }
 
         .toggle input:checked + .slider {
-            background: #3d8172;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
         }
 
         .toggle input:checked + .slider:before {
@@ -186,11 +187,9 @@
 
             padding: 9px 17px;
 
-            border-radius: 20px;
-
-            background: #edf5f2;
-
-            color: #3d8172;
+            border-radius: 999px;
+            background: rgba(78, 161, 255, 0.12);
+            color: var(--primary-light);
 
             font-size: 12px;
 
@@ -202,29 +201,28 @@
         }
 
         .settings-button:hover {
-            background: #dff1eb;
+            background: rgba(57, 216, 190, 0.18);
         }
 
 
         .logout-button {
-            background: #f3f6f5;
-
-            color: #52635e;
+            background: rgba(125, 183, 255, 0.1);
+            color: var(--text-medium);
         }
 
         .logout-button:hover {
-            background: #e6eeeb;
+            background: rgba(125, 183, 255, 0.18);
         }
 
 
         /* ================= DANGER ZONE ================= */
 
         .danger-card {
-            border-color: #f0dddd;
+            border-color: rgba(255, 125, 151, 0.28);
         }
 
         .danger-card .settings-card-header h2 {
-            color: #9d5555;
+            color: #ff9db1;
         }
 
         .delete-button {
@@ -232,11 +230,9 @@
 
             padding: 9px 17px;
 
-            border-radius: 20px;
-
-            background: #fff0f0;
-
-            color: #b34f4f;
+            border-radius: 999px;
+            background: rgba(161, 67, 88, 0.2);
+            color: #ff9db1;
 
             font-size: 12px;
 
@@ -248,7 +244,7 @@
         }
 
         .delete-button:hover {
-            background: #ffe2e2;
+            background: rgba(194, 76, 105, 0.34);
         }
 
 
@@ -261,7 +257,7 @@
 
             inset: 0;
 
-            background: rgba(30, 45, 40, 0.45);
+            background: rgba(2, 10, 16, 0.78);
 
             align-items: center;
 
@@ -277,9 +273,10 @@
 
             max-width: 430px;
 
-            background: white;
-
+            background: linear-gradient(145deg, rgba(14, 31, 54, 0.98), rgba(7, 17, 31, 0.98));
+            border: 1px solid var(--border);
             border-radius: 22px;
+            box-shadow: var(--shadow);
 
             padding: 30px;
 
@@ -292,7 +289,7 @@
 
             margin: 0 auto 18px;
 
-            background: #fff0f0;
+            background: rgba(161, 67, 88, 0.2);
 
             border-radius: 50%;
 
@@ -305,13 +302,14 @@
         }
 
         .delete-modal-content h2 {
+            color: var(--white);
             font-size: 21px;
 
             margin-bottom: 8px;
         }
 
         .delete-modal-content p {
-            color: #71807b;
+            color: var(--text-light);
 
             font-size: 13px;
 
@@ -333,11 +331,9 @@
 
             padding: 10px 20px;
 
-            border-radius: 20px;
-
-            background: #edf5f2;
-
-            color: #52635e;
+            border-radius: 999px;
+            background: rgba(78, 161, 255, 0.12);
+            color: var(--text-medium);
 
             cursor: pointer;
 
@@ -351,11 +347,9 @@
 
             padding: 10px 20px;
 
-            border-radius: 20px;
-
-            background: #b34f4f;
-
-            color: white;
+            border-radius: 999px;
+            background: #b84f70;
+            color: var(--white);
 
             cursor: pointer;
 
@@ -500,7 +494,7 @@
 
                 </div>
 
-                <div class="account-value">
+                <div class="account-value" id="accountName">
                     User
                 </div>
 
@@ -523,7 +517,7 @@
 
                 </div>
 
-                <div class="account-value">
+                <div class="account-value" id="accountEmail">
                     user@example.com
                 </div>
 
@@ -857,6 +851,22 @@
     <!-- ================= JAVASCRIPT ================= -->
 
     <script>
+
+        /* ================= ACCOUNT DETAILS ================= */
+
+        const currentUser = JSON.parse(
+            localStorage.getItem("mindspaceCurrentUser") || "null"
+        );
+
+        document.getElementById("accountName").textContent =
+            currentUser && currentUser.name
+                ? currentUser.name
+                : "Not available";
+
+        document.getElementById("accountEmail").textContent =
+            currentUser && currentUser.email
+                ? currentUser.email
+                : "Not available";
 
         /* ================= LOGOUT ================= */
 

@@ -1,25 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap");
+
 :root {
-    --primary: #0e78b7;
-    --primary-dark: #0a5d9c;
-    --primary-light: #7fe0ff;
+    --primary: #4ea1ff;
+    --primary-dark: #2874c7;
+    --primary-light: #9ed4ff;
     --secondary: #39d8be;
     --secondary-dark: #17b39d;
-    --background: #020a10;
-    --background-light: #061b27;
-    --panel: rgba(8, 21, 33, 0.9);
-    --white: #effdff;
-    --text-dark: #000000;
-    --text-medium: #111111;
-    --text-light: #1d1d1d;
-    --border: rgba(125, 219, 255, 0.35);
-    --footer: #020a10;
-    --shadow: 0 0 0 1px rgba(110, 213, 255, 0.2), 0 22px 42px rgba(6, 27, 39, 0.45);
+    --background: #07111f;
+    --background-light: #0d1d33;
+    --panel: rgba(13, 29, 51, 0.92);
+    --white: #f4f8ff;
+    --text-dark: #f4f8ff;
+    --text-medium: #b7c8df;
+    --text-light: #89a0bd;
+    --border: rgba(125, 183, 255, 0.24);
+    --footer: #050c17;
+    --shadow: 0 0 0 1px rgba(110, 178, 255, 0.12), 0 22px 42px rgba(0, 0, 0, 0.3);
+}
+
+*,
+*::before,
+*::after {
+    font-family: "Montserrat", sans-serif !important;
+    font-weight: 800 !important;
 }
 
 body {
-    background: radial-gradient(circle at top, #dfeef5 0%, #f3f7fb 35%, #edf3f7 100%);
+    background: radial-gradient(circle at top, #102b4b 0%, #07111f 42%, #040a13 100%);
     color: var(--text-dark);
-    font-family: "Trebuchet MS", Arial, sans-serif;
+    font-family: "Montserrat", sans-serif;
 }
 
 .navbar {
@@ -27,15 +36,15 @@ body {
     height: 78px;
     margin: 42px auto 0;
     padding: 0 42px;
-    background: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(16, 16, 16, 0.08);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    background: rgba(7, 17, 31, 0.88);
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.24);
     position: relative;
     backdrop-filter: blur(6px);
 }
 
 .logo {
-    color: #000000;
+    color: var(--primary-light);
     font-family: "Arial Black", Arial, sans-serif;
     font-size: 28px;
     letter-spacing: 0;
@@ -57,7 +66,7 @@ body {
 
 .nav-links a,
 .nav-right a {
-    color: #000000;
+    color: var(--text-medium);
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 1.2px;
@@ -112,14 +121,14 @@ body {
     min-height: 560px;
     margin: 0 auto 42px;
     padding: 76px 60px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.82), rgba(239,248,255,0.9));
-    border: 1px solid rgba(16, 16, 16, 0.08);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+    background: linear-gradient(135deg, rgba(13, 29, 51, 0.96), rgba(7, 17, 31, 0.96));
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
 }
 
 .hero h1,
 .section-title h2 {
-    color: #000000;
+    color: var(--white);
     font-family: "Arial Black", Arial, sans-serif;
     letter-spacing: 0;
     text-transform: none;
@@ -149,7 +158,7 @@ body {
 }
 
 .hero p {
-    color: #1c1c1c;
+    color: var(--text-medium);
     font-size: 18px;
     max-width: 560px;
 }
@@ -186,9 +195,9 @@ body {
     width: min(1180px, 90%);
     max-width: none;
     padding: 58px 60px 80px;
-    background: rgba(255,255,255,0.76);
-    border: 1px solid rgba(16, 16, 16, 0.08);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+    background: rgba(8, 20, 36, 0.94);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
     margin: 0 auto 42px;
 }
 
@@ -196,7 +205,7 @@ body {
 .mood-checkin h2,
 .history-header h2 {
     font-family: "Arial Black", Arial, sans-serif;
-    color: var(--text-dark);
+    color: var(--white);
     text-transform: none;
 }
 
@@ -239,7 +248,7 @@ body {
 .mood-name,
 .mood-control label,
 .mood-note label {
-    color: var(--text-dark);
+    color: var(--white);
 }
 
 .mood-note textarea,
@@ -256,6 +265,63 @@ body {
 .mood-note textarea:focus {
     border-color: var(--secondary);
     box-shadow: 0 0 0 3px rgba(57, 216, 190, 0.14);
+}
+
+.dashboard-list-item {
+    border-bottom-color: var(--border) !important;
+}
+
+.dashboard .card,
+.summary-card {
+    background: linear-gradient(145deg, rgba(14, 31, 54, 0.96), rgba(8, 19, 34, 0.96)) !important;
+    border: 1px solid var(--border) !important;
+    box-shadow: var(--shadow);
+    color: var(--text-dark);
+}
+
+.summary-label,
+.mood-question,
+.activity-info p,
+.dashboard-list-info p {
+    color: var(--text-light) !important;
+}
+
+.card-header h2,
+.summary-value,
+.activity-info h3,
+.dashboard-list-info h3 {
+    color: var(--text-dark);
+}
+
+.mood,
+.activity {
+    background: rgba(8, 24, 42, 0.78) !important;
+    border-color: var(--border) !important;
+}
+
+.mood:hover,
+.activity:hover {
+    background: rgba(24, 56, 91, 0.82) !important;
+    border-color: rgba(78, 161, 255, 0.6) !important;
+}
+
+.mood.selected {
+    background: rgba(31, 91, 143, 0.72) !important;
+    border-color: var(--primary) !important;
+}
+
+.summary-icon,
+.activity-icon {
+    background: rgba(78, 161, 255, 0.14) !important;
+}
+
+.dashboard-list-icon {
+    background: rgba(78, 161, 255, 0.15) !important;
+    color: var(--primary-light);
+}
+
+.module-link:hover {
+    background: rgba(78, 161, 255, 0.12) !important;
 }
 
 .save-mood,
@@ -294,6 +360,268 @@ body {
     border-radius: 10px;
     background: rgba(8, 32, 41, 0.9);
     color: var(--primary-light);
+}
+
+.history-list,
+.history-entry,
+.trend-card,
+.calendar-card,
+.history-tools select,
+.history-tools input,
+.trend-button {
+    background: rgba(13, 29, 51, 0.88) !important;
+    border-color: var(--border) !important;
+    color: var(--text-medium) !important;
+}
+
+.history-entry,
+.calendar-day,
+.trend-button {
+    box-shadow: none;
+}
+
+.history-info h3,
+.history-info strong,
+.history-date,
+.trend-column,
+.calendar-heading {
+    color: var(--text-dark);
+}
+
+.history-emoji,
+.calendar-day.has-entry {
+    color: var(--white);
+}
+
+.history-divider,
+.history-entry {
+    border-color: var(--border) !important;
+}
+
+.wellness-heading h1,
+.activity-intro h2,
+.wellness-card-item h2,
+.modal-content h2 {
+    color: var(--text-dark);
+}
+
+.wellness-heading p,
+.activity-intro p,
+.activity-count,
+.wellness-card-item > p,
+.modal-content p {
+    color: var(--text-light) !important;
+}
+
+.wellness-card-item,
+.modal-content {
+    background: linear-gradient(145deg, rgba(14, 31, 54, 0.97), rgba(8, 19, 34, 0.97)) !important;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+}
+
+.wellness-card-item:hover {
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(78, 161, 255, 0.24);
+}
+
+.activity-large-icon,
+.wellness-card-item:nth-child(3n + 2) .activity-large-icon,
+.wellness-card-item:nth-child(3n) .activity-large-icon,
+.modal-icon {
+    background: rgba(78, 161, 255, 0.15) !important;
+}
+
+.activity-details span:first-child,
+.timer {
+    color: var(--primary-light) !important;
+}
+
+.detail {
+    background: rgba(78, 161, 255, 0.12) !important;
+    color: var(--text-medium) !important;
+}
+
+.start-activity,
+.timer-btn {
+    background: linear-gradient(135deg, var(--primary), var(--secondary)) !important;
+    color: #04141b !important;
+}
+
+.start-activity:hover,
+.timer-btn:hover {
+    filter: brightness(1.08);
+}
+
+.activity-modal {
+    background: rgba(2, 8, 18, 0.78) !important;
+}
+
+.close-modal {
+    background: rgba(78, 161, 255, 0.12) !important;
+    color: var(--text-medium) !important;
+}
+
+.close-modal:hover,
+.close-modal:focus-visible {
+    background: rgba(78, 161, 255, 0.24) !important;
+    color: var(--primary-light) !important;
+}
+
+.timer-btn.secondary {
+    background: rgba(78, 161, 255, 0.12) !important;
+    color: var(--primary-light) !important;
+}
+
+/* Shared page surfaces */
+.feature-card,
+.insight-box,
+.summary-box,
+.insight-card,
+.settings-card,
+.auth-card,
+.chat-container {
+    background: linear-gradient(145deg, rgba(14, 31, 54, 0.97), rgba(8, 19, 34, 0.97)) !important;
+    border-color: var(--border) !important;
+    box-shadow: var(--shadow);
+    color: var(--text-dark);
+}
+
+.feature-card h3,
+.feature-card p,
+.insight-box h3,
+.summary-box h3,
+.summary-value,
+.insight-card h2,
+.settings-card h2,
+.settings-card h3,
+.auth-card h1 {
+    color: var(--text-dark);
+}
+
+.feature-card p,
+.insight-box p,
+.summary-description,
+.insight-card p,
+.settings-card p,
+.auth-subtitle,
+.auth-switch,
+.password-hint,
+.back-home {
+    color: var(--text-light) !important;
+}
+
+.feature-icon,
+.summary-box .summary-icon,
+.insight-box .insight-icon {
+    background: rgba(78, 161, 255, 0.15) !important;
+}
+
+/* AI companion */
+.companion-heading h1,
+.companion-info h2 {
+    color: var(--text-dark);
+}
+
+.companion-heading p,
+.companion-status,
+.companion-disclaimer {
+    color: var(--text-light) !important;
+}
+
+.chat-header,
+.chat-input-area {
+    background: rgba(13, 29, 51, 0.92) !important;
+    border-color: var(--border) !important;
+}
+
+.companion-icon {
+    background: rgba(78, 161, 255, 0.15) !important;
+}
+
+.status-dot {
+    background: var(--secondary) !important;
+}
+
+.chat-messages {
+    background: rgba(5, 14, 26, 0.92) !important;
+}
+
+.message.ai .message-bubble,
+.typing {
+    background: rgba(25, 59, 91, 0.82) !important;
+    color: var(--text-dark) !important;
+}
+
+.message.user .message-bubble,
+.send-button,
+.auth-button {
+    background: linear-gradient(135deg, var(--primary), var(--secondary)) !important;
+    color: #04141b !important;
+}
+
+.chat-input,
+.auth-card input {
+    background: rgba(5, 15, 28, 0.9) !important;
+    border-color: var(--border) !important;
+    color: var(--text-dark) !important;
+}
+
+.chat-input::placeholder,
+.auth-card input::placeholder {
+    color: var(--text-light);
+}
+
+.chat-input:focus,
+.auth-card input:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 3px rgba(78, 161, 255, 0.16) !important;
+}
+
+/* Insights and settings */
+.insights-heading h1,
+.settings-heading h1,
+.insight-card-header h2,
+.settings-card-header h2 {
+    color: var(--text-dark);
+}
+
+.insights-heading p,
+.insight-card-header p,
+.settings-heading p,
+.settings-card-header p,
+.setting-info p {
+    color: var(--text-light) !important;
+}
+
+.settings-card-header,
+.setting-row {
+    border-color: var(--border) !important;
+}
+
+.account-value,
+.detail,
+.timer-btn.secondary {
+    background: rgba(78, 161, 255, 0.12) !important;
+    color: var(--text-medium) !important;
+}
+
+/* Authentication */
+.auth-page {
+    background: radial-gradient(circle at top, #102b4b 0%, #07111f 45%, #040a13 100%) !important;
+}
+
+.auth-logo,
+.auth-switch a {
+    color: var(--primary-light) !important;
+}
+
+.auth-card label {
+    color: var(--text-medium);
+}
+
+.error-message {
+    background: rgba(161, 67, 88, 0.2) !important;
+    color: #ff9db1 !important;
 }
 
 .footer {

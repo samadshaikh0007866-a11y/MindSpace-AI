@@ -165,7 +165,7 @@
 
             font-size: 13px;
 
-            color: #52635e;
+            color: var(--text-medium);
         }
 
         .mood-bar-container {
@@ -173,7 +173,7 @@
 
             height: 9px;
 
-            background: #edf3f0;
+            background: rgba(78, 161, 255, 0.1);
 
             border-radius: 10px;
 
@@ -183,7 +183,7 @@
         .mood-bar {
             height: 100%;
 
-            background: #3d8172;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
 
             border-radius: 10px;
         }
@@ -193,7 +193,7 @@
 
             text-align: right;
 
-            color: #71807b;
+            color: var(--text-light);
 
             font-size: 12px;
         }
@@ -316,21 +316,23 @@
         /* ================= INFO BOX ================= */
 
         .info-box {
-            background: #edf7f4;
-
-            border-radius: 16px;
+            background: rgba(8, 32, 41, 0.72);
+            border: 1px solid rgba(57, 216, 190, 0.18);
+            border-left: 3px solid var(--secondary);
+            border-radius: 14px;
 
             padding: 20px;
         }
 
         .info-box h3 {
+            color: var(--white);
             font-size: 15px;
 
             margin-bottom: 8px;
         }
 
         .info-box p {
-            color: #64746f;
+            color: var(--text-medium);
 
             font-size: 12px;
 
@@ -653,12 +655,12 @@
                     </div>
 
 
-                    <!-- Difficult -->
+                    <!-- Angry -->
 
                     <div class="mood-row">
 
                         <span class="mood-label">
-                            Difficult
+                            Angry
                         </span>
 
                         <div class="mood-bar-container">
