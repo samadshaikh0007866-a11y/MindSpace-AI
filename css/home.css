@@ -1,0 +1,108 @@
+.hero {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    left: -280px;
+    bottom: -260px;
+    border-radius: 50%;
+    border: 1px solid rgba(125, 183, 255, 0.12);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero h1 span {
+    background: linear-gradient(135deg, var(--primary-light), var(--secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.hero-visual .wellness-card {
+    width: min(390px, 100%);
+    min-height: 480px;
+    padding: 38px 36px;
+    background: rgba(7, 23, 31, 0.92);
+    border: 1px solid rgba(125, 183, 255, 0.22);
+    border-radius: 28px;
+}
+
+.hero-visual .circle {
+    width: 225px;
+    height: 225px;
+    margin-bottom: 34px;
+    background: radial-gradient(circle at 35% 30%, rgba(158, 212, 255, 0.18), rgba(13, 29, 51, 0.96) 68%);
+    border: 1px solid rgba(158, 212, 255, 0.32);
+    box-shadow: inset 0 0 28px rgba(78, 161, 255, 0.08), 0 18px 36px rgba(0, 0, 0, 0.3);
+}
+
+.hero-visual .circle img {
+    width: 76%;
+    height: 76%;
+}
+
+.hero-visual .wellness-card h3 {
+    margin-bottom: 16px;
+    color: var(--white);
+    font-family: "Arial Black", Arial, sans-serif;
+    font-size: 28px;
+    line-height: 1.15;
+}
+
+.hero-visual .wellness-card > p {
+    color: var(--text-medium);
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+.hero-visual .mood-box {
+    margin-top: 24px;
+    padding: 20px;
+    color: var(--text-dark);
+    text-align: left;
+    background: rgba(13, 29, 51, 0.96);
+    border: 1px solid rgba(125, 183, 255, 0.22);
+    border-left: 4px solid var(--secondary);
+    border-radius: 12px;
+}
+
+.hero-visual .mood-box span {
+    display: block;
+    margin-bottom: 3px;
+    color: var(--primary-light);
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+.hero-visual .mood-box strong {
+    color: var(--white);
+    font-size: 14px;
+}
+
+@media (max-width: 900px) {
+    .hero-visual .wellness-card {
+        min-height: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero-visual .circle {
+        width: 180px;
+        height: 180px;
+    }
+
+    .hero-visual .wellness-card {
+        padding: 30px 24px;
+    }
+
+    .hero-visual .wellness-card h3 {
+        font-size: 24px;
+    }
+}

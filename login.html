@@ -161,6 +161,8 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/auth.css">
 </head>
 
 <body>
@@ -248,7 +250,7 @@
 
         /* ===== API base (backend server URL) ===== */
 
-        const API_BASE = "http://localhost:3000";
+        const API_BASE = window.location.origin;
 
 
         /* Show or create an inline error banner */

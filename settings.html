@@ -854,19 +854,44 @@
 
         /* ================= ACCOUNT DETAILS ================= */
 
-        const currentUser = JSON.parse(
+        let currentUser = JSON.parse(
             localStorage.getItem("mindspaceCurrentUser") || "null"
         );
 
-        document.getElementById("accountName").textContent =
-            currentUser && currentUser.name
-                ? currentUser.name
-                : "Not available";
+        function displayAccountDetails(user) {
+            document.getElementById("accountName").textContent =
+                user && user.name ? user.name : "Not available";
 
-        document.getElementById("accountEmail").textContent =
-            currentUser && currentUser.email
-                ? currentUser.email
-                : "Not available";
+            document.getElementById("accountEmail").textContent =
+                user && user.email ? user.email : "Not available";
+        }
+
+        displayAccountDetails(currentUser);
+
+        fetch(window.location.origin + "/api/me", {
+            credentials: "include"
+        })
+            .then(function(response) {
+                if (!response.ok) {
+                    window.location.href = "login.html";
+                    return null;
+                }
+
+                return response.json();
+            })
+            .then(function(data) {
+                if (!data || !data.user) return;
+
+                currentUser = data.user;
+                localStorage.setItem(
+                    "mindspaceCurrentUser",
+                    JSON.stringify(currentUser)
+                );
+                displayAccountDetails(currentUser);
+            })
+            .catch(function() {
+                displayAccountDetails(currentUser);
+            });
 
         /* ================= LOGOUT ================= */
 
