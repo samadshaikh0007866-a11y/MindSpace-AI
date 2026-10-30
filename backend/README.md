@@ -47,9 +47,9 @@ npm install
 npm start
 ```
 
-The API will be available at `http://localhost:3000`.
-Serving `index.html` (or any frontend page) from the same origin, or with CORS enabled
-(default), lets the frontend call the API directly.
+Open `http://localhost:3000` to use the frontend and API from the same origin. The server
+serves the frontend pages and assets as well as the API, so login sessions work without
+cross-origin cookie configuration. When deployed remotely, open the backend's public URL.
 
 ## Database schema
 

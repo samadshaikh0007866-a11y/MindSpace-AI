@@ -19,15 +19,47 @@ const express = require("express");
 const cors = require("cors");
 const session = require("express-session");
 const bcrypt = require("bcryptjs");
+const path = require("path");
 const { db, stmts, aiClient } = require("./db");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const FRONTEND_ROOT = path.resolve(__dirname, "..");
 
 /* ===== Middleware ===== */
 
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
+app.use("/assets", express.static(path.join(FRONTEND_ROOT, "assets")));
+app.use("/css", express.static(path.join(FRONTEND_ROOT, "css")));
+app.get("/logo.png", (req, res) => {
+    res.sendFile(path.join(FRONTEND_ROOT, "logo.png"));
+});
+
+const frontendPages = new Set([
+    "ai",
+    "ai-companion",
+    "dashboard",
+    "index",
+    "insights",
+    "login",
+    "mood-tracker",
+    "settings",
+    "signup",
+    "wellness",
+]);
+
+app.get("/", (req, res) => {
+    res.sendFile(path.join(FRONTEND_ROOT, "index.html"));
+});
+
+app.get("/:page.html", (req, res, next) => {
+    if (!frontendPages.has(req.params.page)) {
+        return next();
+    }
+
+    res.sendFile(path.join(FRONTEND_ROOT, `${req.params.page}.html`));
+});
 
 app.use(
     session({

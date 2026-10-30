@@ -15,10 +15,17 @@ const DB_PATH = path.join(__dirname, "data", "mindspace.db");
 
 /* ===== AI Companion Client ===== */
 
-const aiClient = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-    baseURL: process.env.OPENAI_API_BASE
-});
+// AI client is optional.
+// Signup and login will work even without an OpenAI API key.
+
+const aiClient = process.env.OPENAI_API_KEY
+    ? new OpenAI({
+        apiKey: process.env.OPENAI_API_KEY,
+        ...(process.env.OPENAI_API_BASE
+            ? { baseURL: process.env.OPENAI_API_BASE }
+            : {})
+      })
+    : null;
 
 /* Ensure the data folder exists */
 
